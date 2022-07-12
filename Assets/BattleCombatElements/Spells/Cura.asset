@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a974af8c6dcee3b479ba71275ba24808, type: 3}
   m_Name: Cura
   m_EditorClassIdentifier: 
-  name: Cura
+  spellName: Health
   spellType: 1
   manaCost: 15
-  healthValue: 20
-  minDamage: 0
-  maxDamage: 0
-  blind: 0
+  minPowe: 20
+  maxPower: 20
+  spellDebuff: 0
   debuffProbability: 0
   debuffDuration: 0

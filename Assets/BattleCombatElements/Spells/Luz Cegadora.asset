@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a974af8c6dcee3b479ba71275ba24808, type: 3}
   m_Name: Luz Cegadora
   m_EditorClassIdentifier: 
-  name: Luz Cegadora
+  spellName: Blinding Light
   spellType: 2
   manaCost: 20
-  healthValue: 0
-  minDamage: 0
-  maxDamage: 0
-  blind: 1
+  minPowe: 0
+  maxPower: 0
+  spellDebuff: 1
   debuffProbability: 25
-  debuffDuration: 0
+  debuffDuration: 2

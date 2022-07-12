@@ -5,22 +5,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Spell", menuName = "Battle/Spell")]
 public class Spell : ScriptableObject
 {
-    new public string name;
+    public string spellName;
 
     public enum SpellType { Damage, Health, Debuff }
     public SpellType spellType;
     public int manaCost;
 
-    public int healthValue;
-    public int minDamage, maxDamage;
+    public int minPowe, maxPower;
 
-    public bool blind;
+    public enum SpellDebuff { NONE, Blind }
+    public SpellDebuff spellDebuff;
 
     public int debuffProbability;
     public int debuffDuration;
 
-    public int GetDamage()
+    public int GetPower()
     {
-        return Random.Range(minDamage, maxDamage);
+        return Random.Range(minPowe, maxPower);
     }
 }

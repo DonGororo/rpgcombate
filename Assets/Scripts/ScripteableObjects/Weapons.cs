@@ -7,7 +7,7 @@ public class Weapons : ScriptableObject
 {
     new public string name = "Weapon";
     public int minDamage, maxDamage;
-    public int accuracityModifier;
+    //public int accuracityModifier;
 
     public int GetDamage()
     {

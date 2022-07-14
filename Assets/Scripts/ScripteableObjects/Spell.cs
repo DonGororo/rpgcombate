@@ -10,6 +10,7 @@ public class Spell : ScriptableObject
     public enum SpellType { Damage, Health, Debuff }
     public SpellType spellType;
     public int manaCost;
+    public AnimationClip customAnimation;
 
     public int minPowe, maxPower;
 

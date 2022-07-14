@@ -7,6 +7,8 @@ public class Weapons : ScriptableObject
 {
     new public string name = "Weapon";
     public int minDamage, maxDamage;
+
+    public AnimationClip customAnimation;
     //public int accuracityModifier;
 
     public int GetDamage()

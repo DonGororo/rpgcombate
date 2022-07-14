@@ -88,9 +88,9 @@ public class BattleUnit : MonoBehaviour
 
 	}
 
-	public int GetDamage()
+	public int GetDamage(int slot = 0)
     {
-		int weaponBaseDamage = weapons[0].GetDamage();
+		int weaponBaseDamage = weapons[slot].GetDamage();
 
 		float returnDamage;
 

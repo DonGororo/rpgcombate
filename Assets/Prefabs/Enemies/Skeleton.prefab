@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5728326411612866447}
   - component: {fileID: 960927979040465001}
   - component: {fileID: 7668612500591984781}
+  - component: {fileID: 5069421373476701450}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -107,3 +108,23 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: 9e08d70e4c5ba9d47bd7c438acf8b6a8, type: 2}
   spells: []
+--- !u!95 &5069421373476701450
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762226197514109654}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 72d4bfa27bac01a4ebf5b555bd74855e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

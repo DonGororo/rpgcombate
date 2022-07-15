@@ -21,6 +21,11 @@ public class BattleSystem : MonoBehaviour
 	BattleUnit playerUnit;
 	BattleUnit enemyUnit;
 
+	Animator playerAnim;
+	AnimatorOverrideController playerAnimOverdrive;
+	Animator enemyAnim;
+	AnimatorOverrideController enemyAnimOverdrive;
+
 	[SerializeField] TextMeshProUGUI dialogueText;
 
 	[SerializeField] BattleHUD playerHUD;
@@ -42,13 +47,20 @@ public class BattleSystem : MonoBehaviour
     }
 
     #region Battle Logic
+
     IEnumerator SetupBattle()
 	{
 		GameObject playerGO = Instantiate(playerPrefab, playerPosition);
 		playerUnit = playerGO.GetComponent<BattleUnit>();
+		playerAnim = playerGO.GetComponent<Animator>();
+		playerAnimOverdrive = new AnimatorOverrideController(playerAnim.runtimeAnimatorController);
+		playerAnim.runtimeAnimatorController = playerAnimOverdrive;
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyPosition);
 		enemyUnit = enemyGO.GetComponent<BattleUnit>();
+		enemyAnim = enemyGO.GetComponent<Animator>();
+		enemyAnimOverdrive = new AnimatorOverrideController(enemyAnim.runtimeAnimatorController);
+		enemyAnim.runtimeAnimatorController = enemyAnimOverdrive;
 
 		dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
 
@@ -71,31 +83,38 @@ public class BattleSystem : MonoBehaviour
 
 	IEnumerator PlayerAttack()
 	{
-		//state = BattleState.BUSY;
 		bool isDead = false;
+
+		if (playerUnit.weapons[0].customAnimation != null)
+		{
+			playerAnimOverdrive["AttackCustom"] = playerUnit.weapons[0].customAnimation;
+			playerAnim.runtimeAnimatorController = playerAnimOverdrive;
+			playerAnim.SetTrigger("AttackCustom");
+		}
+		else playerAnim.SetTrigger("AttackDefault");
 
 		if (playerUnit.GetAccuracy() <= enemyUnit.GetEvasion())
         {
 			isDead = DamagePlayerToEnemy(playerUnit.GetDamage());
+
+			if (isDead) enemyAnim.SetTrigger("Death");
+			else enemyAnim.SetTrigger("TakeHit");
+
 			dialogueText.text = "The attack is successful!";
         }
         else
         {
+			enemyAnim.SetTrigger("MissHit");
+			enemyUnit.PlayMissHitClip();
 			dialogueText.text = "The attack missed!";
 		}
 
 		state = BattleState.ENEMYTURN;
+
+		yield return new WaitForSeconds(0.1f);
 		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-		if (isDead)
-		{
-			state = BattleState.WON;
-			EndBattle();
-		}
-		else
-		{
-			StartCoroutine(EnemyTurn());
-		}
+		IfEnemyDead(isDead);
 	}
 
 	IEnumerator PlayerDefending()
@@ -124,110 +143,97 @@ public class BattleSystem : MonoBehaviour
     {
 		spellBox.SetActive(false);
 		bool isDead = false;
-        switch (spell.spellType)
-        {
-            case Spell.SpellType.Damage:
-				if (playerUnit.currentMP > spell.manaCost)
-				{
-					ReducePlayerMP(spell.manaCost);
 
+        if (playerUnit.currentMP > spell.manaCost)
+        {
+			ReducePlayerMP(spell.manaCost);
+			playerUnit.PlaySpellAttackClip(spell.customSound);
+			if (spell.customAnimation != null)
+			{
+				playerAnimOverdrive["SpellAttackCustom"] = spell.customAnimation;
+				playerAnim.runtimeAnimatorController = playerAnimOverdrive;
+				playerAnim.SetTrigger("SpellAttackCustom");
+			}
+			else playerAnim.SetTrigger("SpellAttackDefault");
+
+			dialogueText.text = "You used " + spell.spellName;
+
+			switch (spell.spellType)
+			{
+				case Spell.SpellType.Damage:
 					isDead = DamagePlayerToEnemy(spell.GetPower());
 
-                    switch (spell.spellDebuff)
-                    {
-                        case Spell.SpellDebuff.NONE:
-                            break;
-						case Spell.SpellDebuff.Blind:
-							enemyUnit.Blinded(spell.debuffDuration);
-							break;
-						default:
-							break;
-					}
-
-                    dialogueText.text = "You used " + spell.spellName;
-
-					state = BattleState.ENEMYTURN;
-					yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
-					if (isDead)
-					{
-						state = BattleState.WON;
-						EndBattle();
-					}
-					else
-					{
-						StartCoroutine(EnemyTurn());
-					}
-				}
-				else dialogueText.text = "You dont have enough mana!";
-				break;
-
-            case Spell.SpellType.Health:
-				if (playerUnit.currentMP > spell.manaCost)
-				{
-					ReducePlayerMP(spell.manaCost);
-
-					playerUnit.Heal(spell.GetPower());
-					playerHUD.UpdateHP(playerUnit.currentHP);
-
-					dialogueText.text = "You used " + spell.spellName;
-
-					state = BattleState.ENEMYTURN;
-					yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-					StartCoroutine(EnemyTurn());
-				}
-				else dialogueText.text = "You dont have enough mana!";
-				break;
-
-            case Spell.SpellType.Debuff:
-				if (playerUnit.currentMP > spell.manaCost)
-				{
-					ReducePlayerMP(spell.manaCost);
+					if (isDead) enemyAnim.SetTrigger("Death");
+					else enemyAnim.SetTrigger("TakeHit");
 
 					switch (spell.spellDebuff)
 					{
+						case Spell.SpellDebuff.NONE:
+							break;
 						case Spell.SpellDebuff.Blind:
 							enemyUnit.Blinded(spell.debuffDuration);
 							break;
 						default:
 							break;
 					}
+					break;
 
-					dialogueText.text = "You used " + spell.spellName;
+				case Spell.SpellType.Health:
+					playerUnit.Heal(spell.GetPower());
+					playerHUD.UpdateHP(playerUnit.currentHP);
+					break;
 
-					state = BattleState.ENEMYTURN;
-					yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
-					if (isDead)
+				case Spell.SpellType.Debuff:
+					switch (spell.spellDebuff)
 					{
-						state = BattleState.WON;
-						EndBattle();
+						case Spell.SpellDebuff.NONE:
+							break;
+						case Spell.SpellDebuff.Blind:
+							enemyUnit.Blinded(spell.debuffDuration);
+							break;
+						default:
+							break;
 					}
-					else
-					{
-						StartCoroutine(EnemyTurn());
-					}
-				}
-				else dialogueText.text = "You dont have enough mana!"; 
-				break;
+					break;
+			}
 
-        }
-    }
+			state = BattleState.ENEMYTURN;
+			yield return new WaitForSeconds(0.1f);
+			yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+			IfEnemyDead(isDead);
+		}
+		else dialogueText.text = "You dont have enough mana!";
+	}
 
 	IEnumerator EnemyTurn()
 	{
 		enemyUnit.ReduceBuffTurn();
+
 		bool isDead = false;
 		dialogueText.text = enemyUnit.unitName + " attacks!";
 		print("Dialogo de ataque");
 
+		if (enemyUnit.weapons[0].customAnimation != null)
+		{
+			enemyAnimOverdrive["AttackCustom"] = enemyUnit.weapons[0].customAnimation;
+			enemyAnim.runtimeAnimatorController = enemyAnimOverdrive;
+			enemyAnim.SetTrigger("AttackCustom");
+		}
+		else enemyAnim.SetTrigger("AttackDefault");
+
 		if (enemyUnit.GetAccuracy() <= playerUnit.GetEvasion())
 		{
 			isDead = DamageEnemyToPlayer(enemyUnit.GetDamage());
+
+			if (isDead) playerAnim.SetTrigger("Death");
+			else playerAnim.SetTrigger("TakeHit");
+
 			dialogueText.text = "The enemy attack is successful!";
 		}
 		else
 		{
+			playerAnim.SetTrigger("MissHit");
+			playerUnit.PlayMissHitClip();
 			dialogueText.text = "The enemy attack missed!";
 		}
 
@@ -312,6 +318,19 @@ public class BattleSystem : MonoBehaviour
     {
 		playerUnit.ReduceMP(mp);
 		playerHUD.UpdateMP(playerUnit.currentMP);
+	}
+
+	void IfEnemyDead(bool isDead)
+    {
+		if (isDead)
+		{
+			state = BattleState.WON;
+			EndBattle();
+		}
+		else
+		{
+			StartCoroutine(EnemyTurn());
+		}
 	}
 
     #endregion

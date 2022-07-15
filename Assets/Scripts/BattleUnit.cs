@@ -9,13 +9,15 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class BattleUnit : MonoBehaviour
 {
+    #region Variables
+
+    //En verdad todo esto se podria hacer un ScripteableObject para que mantenga los valores de vida y eso... pero bue
+
 	[Header("Debuffs Zone")]
 	float blindMissChange = 0.5f;
 	int defNullifiedDamage =2;
-
-
-	//En verdad todo esto se podria hacer un ScripteableObject para que mantenga los valores de vida y eso... pero bue
-	[Header("NO TOCAR Zone")]
+	
+	[Header("Basic Parameters")]
 	public string unitName;
 	public int currentHP, maxHP;
 	public int currentMP, maxMP;
@@ -23,11 +25,21 @@ public class BattleUnit : MonoBehaviour
 
 	//	Modificadores de las estadisticas
 	int modEvasion, modAccuracy;
-	
-	public Action<int> CheckBuffs;
 
-	//	Array de turnos para cada debuffo
-	int[] debuffTurns = new int[]
+    [Header("Battle thingies")]
+	public Weapons[] weapons;
+	public Spell[] spells;
+
+    [Header("Audio Clips")]
+	public AudioClip attackDefaultClip;
+	public AudioClip spellAttackDefaultClip;
+	public AudioClip takeHitClip;
+	public AudioClip missHitClip;
+	public AudioClip deathClip;
+	AudioSource audioSource;
+
+    //	Array de turnos para cada debuffo
+    int[] debuffTurns = new int[]
     {
 		0,	//	blinded index 0
 		0	//	Defense index 1
@@ -37,8 +49,14 @@ public class BattleUnit : MonoBehaviour
 	bool blinded;
 	bool defended;
 
-	public Weapons[] weapons;
-	public Spell[] spells;
+    Action<int> CheckBuffs;	//	Es un evento pero mas corto... yokse hace magias
+
+    #endregion
+
+    private void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     public void ReduceBuffTurn()
     {
@@ -66,9 +84,16 @@ public class BattleUnit : MonoBehaviour
 		Debug.Log(defNullifiedDamage);
 
 		if (currentHP <= 0)
+        {
+			PlayDeathClip();
+			currentHP = 0;
 			return true;
-		else
-			return false;
+        }
+        else 
+		{
+			PlayTakeHitClip();
+			return false;			
+		}
 	}
 
 	public void ReduceMP(int cost)
@@ -106,14 +131,15 @@ public class BattleUnit : MonoBehaviour
 
 	}
 
-	public int GetDamage()
+	public int GetDamage(int slot = 0)
     {
-		int weaponBaseDamage = weapons[0].GetDamage();
+		int weaponBaseDamage = weapons[slot].GetDamage();
 
 		float returnDamage;
 
 		returnDamage = weaponBaseDamage;
 
+        PlayAttackClip(weapons[slot].customSound);
 		return (int)returnDamage;
     }
     #endregion
@@ -155,4 +181,48 @@ public class BattleUnit : MonoBehaviour
 	}
 
 	#endregion
+
+    #region Play Sounds
+	void PlayAttackClip(AudioClip customClip = null)
+    {
+		if(customClip != null)
+        {
+			audioSource.clip = customClip;
+			audioSource.Play();
+        }
+        else
+        {
+			audioSource.clip = attackDefaultClip;
+			audioSource.Play();
+        }
+	}
+	public void PlaySpellAttackClip(AudioClip customClip = null)
+    {
+		if (customClip != null)
+		{
+			audioSource.clip = customClip;
+			audioSource.Play();
+		}
+		else
+		{
+			audioSource.clip = spellAttackDefaultClip;
+			audioSource.Play();
+		}
+	}
+	void PlayTakeHitClip()
+    {
+		audioSource.clip = takeHitClip;
+		audioSource.Play();
+	}
+	public void PlayMissHitClip()
+    {
+		audioSource.clip = missHitClip;
+		audioSource.Play();
+	}
+	void PlayDeathClip()
+    {
+		audioSource.clip = deathClip;
+		audioSource.Play();
+	}
+    #endregion
 }

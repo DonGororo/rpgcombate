@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8605122416339256629}
   - component: {fileID: 5761000067338952993}
   - component: {fileID: 8013068058659130511}
+  - component: {fileID: 35078747767183953}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -109,3 +110,28 @@ MonoBehaviour:
   spells:
   - {fileID: 11400000, guid: cfd83b2ec8e447048ac69c69184d36ed, type: 2}
   - {fileID: 11400000, guid: 63319d3c27be7774b806fc7758d83058, type: 2}
+  attackDefaultClip: {fileID: 8300000, guid: 0a14cd4c4ad0d9245acbec58d4b59ccb, type: 3}
+  spellAttackDefaultClip: {fileID: 8300000, guid: 5c1985b0608197243a7c7e4ca356ddeb, type: 3}
+  takeHitClip: {fileID: 8300000, guid: e85bf8666ed73714481fd43893864911, type: 3}
+  missHitClip: {fileID: 8300000, guid: d99301b4075f5b54da96f171582c9d3c, type: 3}
+  deathClip: {fileID: 8300000, guid: f2cdaa73044994d4abe7f669bf395981, type: 3}
+--- !u!95 &35078747767183953
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648176154553561796}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ce6bfaf2bc89569499564e939181ffcd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

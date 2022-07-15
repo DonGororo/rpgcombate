@@ -13,10 +13,10 @@ public class Spell : ScriptableObject
 
     public int minPowe, maxPower;
 
-    public enum SpellDebuff { NONE, Blind }
+    public enum SpellDebuff { NONE, Blind, Defend }
     public SpellDebuff spellDebuff;
 
-    public int debuffProbability;
+    //public int debuffProbability;
     public int debuffDuration;
 
     public int GetPower()

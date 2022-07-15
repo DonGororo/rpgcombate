@@ -11,7 +11,7 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST, BUSY }
 
 public class BattleSystem : MonoBehaviour
 {
-	[Header("Battle Part")]
+	[Header("Battle Zone")]
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] GameObject enemyPrefab;
 
@@ -31,6 +31,8 @@ public class BattleSystem : MonoBehaviour
 	[Header("Spells Zone")]
 	[SerializeField] GameObject spellButton;
 	[SerializeField] GameObject spellBox;
+
+	[SerializeField] int defenseDuration;
 
 	private void Start()
     {
@@ -81,6 +83,28 @@ public class BattleSystem : MonoBehaviour
         {
 			dialogueText.text = "The attack missed!";
 		}
+
+		state = BattleState.ENEMYTURN;
+		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+
+		if (isDead)
+		{
+			state = BattleState.WON;
+			EndBattle();
+		}
+		else
+		{
+			StartCoroutine(EnemyTurn());
+		}
+	}
+
+	IEnumerator PlayerDefending()
+    {
+		bool isDead = false;
+
+		playerUnit.InDefense(defenseDuration);
+
+		dialogueText.text = "You are on guard!";
 
 		state = BattleState.ENEMYTURN;
 		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
@@ -241,6 +265,11 @@ public class BattleSystem : MonoBehaviour
 			return;
 
 		StartCoroutine(PlayerAttack());
+	}
+
+	public void OnDefendButton()
+	{
+		StartCoroutine(PlayerDefending());
 	}
 
 	void CreateSpellsButtons()

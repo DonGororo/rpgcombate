@@ -9,7 +9,13 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class BattleUnit : MonoBehaviour
 {
+	[Header("Debuffs Zone")]
+	float blindMissChange = 0.5f;
+	int defNullifiedDamage =2;
+
+
 	//En verdad todo esto se podria hacer un ScripteableObject para que mantenga los valores de vida y eso... pero bue
+	[Header("NO TOCAR Zone")]
 	public string unitName;
 	public int currentHP, maxHP;
 	public int currentMP, maxMP;
@@ -29,11 +35,12 @@ public class BattleUnit : MonoBehaviour
 
 	//	Debuffos aplicados
 	bool blinded;
+	bool defended;
 
 	public Weapons[] weapons;
 	public Spell[] spells;
 
-	public void ReduceBuffTurn()
+    public void ReduceBuffTurn()
     {
         for (int i = 0; i < debuffTurns.Length; i++)
         {
@@ -44,8 +51,19 @@ public class BattleUnit : MonoBehaviour
     }
 
 	public bool TakeDamage(int dmg)
-	{
-		currentHP -= dmg;
+    {
+        if (defended)
+        {
+            currentHP -= dmg/defNullifiedDamage;
+			Debug.Log(defNullifiedDamage);
+		}
+        else
+        {
+			currentHP -= dmg;
+		}
+
+		Debug.Log(dmg);
+		Debug.Log(defNullifiedDamage);
 
 		if (currentHP <= 0)
 			return true;
@@ -73,7 +91,7 @@ public class BattleUnit : MonoBehaviour
 
 		returnAccuracy = Random.Range(0 , 100) - baseAccuracy - modAccuracy;
 
-		if (blinded) returnAccuracy = returnAccuracy * 1.25f;
+		if (blinded) returnAccuracy = returnAccuracy * (1 + blindMissChange);
 
 		return (int)returnAccuracy;
     }
@@ -117,5 +135,24 @@ public class BattleUnit : MonoBehaviour
 		}
     }
 
-    #endregion
+	public void InDefense(int turns = 0)
+	{
+		Debug.Log("check1");
+		
+		if (turns > 0) debuffTurns[1] = turns;
+		if (debuffTurns[1] > 0)
+		{
+			Debug.Log("check2");
+			defended = true;
+			CheckBuffs += InDefense;
+		}
+		else
+		{
+			Debug.Log("check3");
+			defended = false;
+			CheckBuffs -= InDefense;
+		}
+	}
+
+	#endregion
 }

@@ -103,7 +103,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
 			enemyAnim.SetTrigger("MissHit");
-
+			enemyUnit.PlayMissHitClip();
 			dialogueText.text = "The attack missed!";
 		}
 
@@ -123,7 +123,7 @@ public class BattleSystem : MonoBehaviour
         if (playerUnit.currentMP > spell.manaCost)
         {
 			ReducePlayerMP(spell.manaCost);
-
+			playerUnit.PlaySpellAttackClip(spell.customSound);
 			if (spell.customAnimation != null)
 			{
 				playerAnimOverdrive["SpellAttackCustom"] = spell.customAnimation;
@@ -209,6 +209,7 @@ public class BattleSystem : MonoBehaviour
 		else
 		{
 			playerAnim.SetTrigger("MissHit");
+			playerUnit.PlayMissHitClip();
 			dialogueText.text = "The enemy attack missed!";
 		}
 

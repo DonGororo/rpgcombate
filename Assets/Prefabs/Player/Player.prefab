@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cccb061bb54f224bb369bbadec4b464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blindMissChange: 0.5
+  defNullifiedDamage: 2
   unitName: Hero
   currentHP: 100
-  maxHP: 100
+  maxHP: 250
   currentMP: 70
   maxMP: 70
   baseEvasion: 90

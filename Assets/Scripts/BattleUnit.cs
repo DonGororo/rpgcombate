@@ -14,8 +14,8 @@ public class BattleUnit : MonoBehaviour
     //En verdad todo esto se podria hacer un ScripteableObject para que mantenga los valores de vida y eso... pero bue
 
 	[Header("Debuffs Zone")]
-	float blindMissChange = 0.5f;
-	int defNullifiedDamage =2;
+	public float blindMissChange = 0.5f;
+	public int defNullifiedDamage =2;
 	
 	[Header("Basic Parameters")]
 	public string unitName;

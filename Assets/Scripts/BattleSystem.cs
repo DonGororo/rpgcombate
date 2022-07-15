@@ -119,24 +119,15 @@ public class BattleSystem : MonoBehaviour
 
 	IEnumerator PlayerDefending()
     {
-		bool isDead = false;
-
 		playerUnit.InDefense(defenseDuration);
 
 		dialogueText.text = "You are on guard!";
 
 		state = BattleState.ENEMYTURN;
+		yield return new WaitForSeconds(0.1f);
 		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-		if (isDead)
-		{
-			state = BattleState.WON;
-			EndBattle();
-		}
-		else
-		{
-			StartCoroutine(EnemyTurn());
-		}
+		StartCoroutine(EnemyTurn());
 	}
 
 	IEnumerator PlayerSpell(Spell spell)

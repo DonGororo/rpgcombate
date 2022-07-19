@@ -102,7 +102,7 @@ MonoBehaviour:
   defNullifiedDamage: 2
   unitName: Hero
   currentHP: 100
-  maxHP: 250
+  maxHP: 100
   currentMP: 70
   maxMP: 70
   baseEvasion: 90
@@ -112,6 +112,10 @@ MonoBehaviour:
   spells:
   - {fileID: 11400000, guid: cfd83b2ec8e447048ac69c69184d36ed, type: 2}
   - {fileID: 11400000, guid: 63319d3c27be7774b806fc7758d83058, type: 2}
+  HUDtag: PlayerHUD
+  HUD: {fileID: 0}
+  anim: {fileID: 0}
+  animOverride: {fileID: 0}
   attackDefaultClip: {fileID: 8300000, guid: 0a14cd4c4ad0d9245acbec58d4b59ccb, type: 3}
   spellAttackDefaultClip: {fileID: 8300000, guid: 5c1985b0608197243a7c7e4ca356ddeb, type: 3}
   takeHitClip: {fileID: 8300000, guid: e85bf8666ed73714481fd43893864911, type: 3}

@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cccb061bb54f224bb369bbadec4b464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blindMissChange: 0.5
+  defNullifiedDamage: 2
   unitName: Skeleton
   currentHP: 100
   maxHP: 100
@@ -108,6 +110,14 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: 9e08d70e4c5ba9d47bd7c438acf8b6a8, type: 2}
   spells: []
+  HUDtag: EnemyHUD
+  anim: {fileID: 0}
+  animOverride: {fileID: 0}
+  attackDefaultClip: {fileID: 0}
+  spellAttackDefaultClip: {fileID: 0}
+  takeHitClip: {fileID: 0}
+  missHitClip: {fileID: 0}
+  deathClip: {fileID: 0}
 --- !u!95 &5069421373476701450
 Animator:
   serializedVersion: 4

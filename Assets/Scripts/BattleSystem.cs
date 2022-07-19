@@ -250,7 +250,7 @@ public class BattleSystem : MonoBehaviour
 		}
 		else if (state == BattleState.LOST)
 		{
-			dialogueText.text = "Ve a comerte una ";
+			dialogueText.text = "You were defeated.";
 		}
 	}
 
@@ -318,6 +318,19 @@ public class BattleSystem : MonoBehaviour
     {
 		target.ReduceMP(mp);
 		target.HUD.UpdateMP(target.currentMP);
+	}
+
+	void IfEnemyDead(bool isDead)
+    {
+		if (isDead)
+		{
+			state = BattleState.WON;
+			EndBattle();
+		}
+		else
+		{
+			EnemyTurn();
+		}
 	}
 
 	IEnumerator EnableActionButtons(bool _bool)

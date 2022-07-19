@@ -18,7 +18,8 @@ public class BattleHUD : MonoBehaviour
     {
         nameText.text = battleUnit.unitName;
 
-        hpSlider.value = hpSlider.maxValue = battleUnit.maxHP;
+        hpSlider.maxValue = battleUnit.maxHP;
+        hpSlider.value = battleUnit.currentHP;
         hpText.text = battleUnit.maxHP + "/" + battleUnit.maxHP;
 
         //Como el enemigo no tiene una barra de mana visible, si no esta a?adida simplemente no se ejecutara
@@ -37,6 +38,7 @@ public class BattleHUD : MonoBehaviour
 
     public void UpdateMP(int mp)
     {
+        if (mpSlider == null) return;
         mpSlider.value = mp;
         mpText.text = mp + "/" + mpSlider.maxValue;
     }

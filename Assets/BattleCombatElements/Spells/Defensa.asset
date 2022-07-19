@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a974af8c6dcee3b479ba71275ba24808, type: 3}
   m_Name: Defensa
   m_EditorClassIdentifier: 
-  spellName: 
+  spellName: Defense
   spellType: 2
   manaCost: 0
   minPowe: 0
   maxPower: 0
   spellDebuff: 2
   debuffDuration: 1
+  customAnimation: {fileID: 0}
+  customSound: {fileID: 0}

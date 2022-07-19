@@ -30,6 +30,14 @@ public class BattleUnit : MonoBehaviour
 	public Weapons[] weapons;
 	public Spell[] spells;
 
+	[Header("HUD Tag")]
+	public string HUDtag;
+	public BattleHUD HUD;
+
+	[Header("Animation")]
+	public Animator anim;
+	public AnimatorOverrideController animOverride;
+
     [Header("Audio Clips")]
 	public AudioClip attackDefaultClip;
 	public AudioClip spellAttackDefaultClip;
@@ -37,6 +45,10 @@ public class BattleUnit : MonoBehaviour
 	public AudioClip missHitClip;
 	public AudioClip deathClip;
 	AudioSource audioSource;
+
+	[Header("Action Probability If NPC")]
+	public int attackProbability;
+	public int spellProbability;
 
     //	Array de turnos para cada debuffo
     int[] debuffTurns = new int[]
@@ -53,10 +65,16 @@ public class BattleUnit : MonoBehaviour
 
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
-    }
+		anim = GetComponent<Animator>();
+		animOverride = new AnimatorOverrideController(anim.runtimeAnimatorController);
+		anim.runtimeAnimatorController = animOverride;
+
+		HUD = GameObject.FindGameObjectWithTag(HUDtag).GetComponent<BattleHUD>();
+		HUD.SetHUD(this);
+	}
 
     public void ReduceBuffTurn()
     {
@@ -70,18 +88,8 @@ public class BattleUnit : MonoBehaviour
 
 	public bool TakeDamage(int dmg)
     {
-        if (defended)
-        {
-            currentHP -= dmg/defNullifiedDamage;
-			Debug.Log(defNullifiedDamage);
-		}
-        else
-        {
-			currentHP -= dmg;
-		}
-
-		Debug.Log(dmg);
-		Debug.Log(defNullifiedDamage);
+        if (defended) currentHP -= dmg/defNullifiedDamage;
+        else currentHP -= dmg;
 
 		if (currentHP <= 0)
         {
@@ -163,18 +171,14 @@ public class BattleUnit : MonoBehaviour
 
 	public void InDefense(int turns = 0)
 	{
-		Debug.Log("check1");
-		
 		if (turns > 0) debuffTurns[1] = turns;
 		if (debuffTurns[1] > 0)
 		{
-			Debug.Log("check2");
 			defended = true;
 			CheckBuffs += InDefense;
 		}
 		else
 		{
-			Debug.Log("check3");
 			defended = false;
 			CheckBuffs -= InDefense;
 		}

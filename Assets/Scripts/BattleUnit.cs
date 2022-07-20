@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 /// <summary>
 /// Este script contiene todos los datos de la unidad, incluido estadisticas base y modificadores
 /// Tambien realizara los calculos de los ataques
@@ -61,7 +62,13 @@ public class BattleUnit : MonoBehaviour
 	bool blinded;
 	bool defended;
 
-    Action<int> CheckBuffs;	//	Es un evento pero mas corto... yokse hace magias
+	// Iconos de Debufos
+	public GameObject playerIcon;
+	public Sprite defenseIcon;
+	public GameObject enemyIcon;
+	public Sprite blindIcon;
+
+	Action<int> CheckBuffs;	//	Es un evento pero mas corto... yokse hace magias
 
     #endregion
 
@@ -74,6 +81,12 @@ public class BattleUnit : MonoBehaviour
 
 		HUD = GameObject.FindGameObjectWithTag(HUDtag).GetComponent<BattleHUD>();
 		HUD.SetHUD(this);
+
+		//Posicion de los iconos
+		playerIcon = GameObject.Find("P.Buff 1");
+		defenseIcon = Resources.Load<Sprite>("T_1_shield_");
+		enemyIcon = GameObject.Find("E.Buff 1");
+		blindIcon = Resources.Load<Sprite>("T_4_eye_bleed_");
 	}
 
     public void ReduceBuffTurn()
@@ -161,11 +174,13 @@ public class BattleUnit : MonoBehaviour
         {
 			blinded = true;
 			CheckBuffs += Blinded;
+			PutIconIn("blind");
         }
         else 
         {
 			blinded=false;
 			CheckBuffs -= Blinded;
+			PutIconOut("blind");
 		}
     }
 
@@ -176,17 +191,51 @@ public class BattleUnit : MonoBehaviour
 		{
 			defended = true;
 			CheckBuffs += InDefense;
+			PutIconIn("defense");
 		}
 		else
 		{
 			defended = false;
 			CheckBuffs -= InDefense;
+			PutIconOut("defense");
+
 		}
+    }
+
+    #endregion
+
+    #region Buff Icons
+
+    public void PutIconIn(string debuf)
+    {
+		if (debuf == "defense")
+        {
+			playerIcon.GetComponent<Image>().sprite = defenseIcon;
+        }
+		else if (debuf == "blind")
+		{
+			enemyIcon.GetComponent<Image>().sprite = blindIcon;
+		}
+
 	}
+
+	public void PutIconOut(string debuf)
+	{
+		if (debuf == "defense")
+		{
+			playerIcon.GetComponent<Image>().sprite = null;
+		}
+		else if (debuf == "blind")
+		{
+			enemyIcon.GetComponent<Image>().sprite = null;
+		}
+
+	}
+
 
 	#endregion
 
-    #region Play Sounds
+	#region Play Sounds
 	void PlayAttackClip(AudioClip customClip = null)
     {
 		if(customClip != null)

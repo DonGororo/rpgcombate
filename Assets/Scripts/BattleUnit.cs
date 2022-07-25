@@ -68,6 +68,10 @@ public class BattleUnit : MonoBehaviour
 	public GameObject enemyIcon;
 	public Sprite blindIcon;
 
+	public GameObject playerPanel;
+	public GameObject enemyPanel;
+
+
 	Action<int> CheckBuffs;	//	Es un evento pero mas corto... yokse hace magias
 
     #endregion
@@ -87,6 +91,7 @@ public class BattleUnit : MonoBehaviour
 		defenseIcon = Resources.Load<Sprite>("T_1_shield_");
 		enemyIcon = GameObject.Find("E.Buff 1");
 		blindIcon = Resources.Load<Sprite>("T_4_eye_bleed_");
+		//playerPanel = 
 	}
 
     public void ReduceBuffTurn()
@@ -174,13 +179,16 @@ public class BattleUnit : MonoBehaviour
         {
 			blinded = true;
 			CheckBuffs += Blinded;
-			PutIconIn("blind");
-        }
+			HUD.PutIconIn("blind");
+			//HUB.BattleHUD.PutIconIn("blind");
+			//Invoke("BattleHUD.PutIconIn('blind')", 3f);
+
+		}
         else 
         {
 			blinded=false;
 			CheckBuffs -= Blinded;
-			PutIconOut("blind");
+			HUD.PutIconOut("blind");
 		}
     }
 
@@ -191,21 +199,62 @@ public class BattleUnit : MonoBehaviour
 		{
 			defended = true;
 			CheckBuffs += InDefense;
-			PutIconIn("defense");
+			HUD.PutIconIn("defense");
 		}
 		else
 		{
 			defended = false;
 			CheckBuffs -= InDefense;
-			PutIconOut("defense");
+			HUD.PutIconOut("defense");
 
 		}
-    }
+	}
 
-    #endregion
+	#endregion
 
-    #region Buff Icons
+	#region Buff Icons
+	/*
+	public static void PutIconIn(string debuff)
+	{
+		for (int i = 0; i < BattleHUD.grindMax; i++)
+		{
 
+			if (BattleHUD.myIconGrinds[i].gameObject.activeInHierarchy == false)
+			{
+				BattleHUD.myIconGrinds[i].gameObject.SetActive(true);
+
+				switch (debuff)
+				{
+					case "defense":
+						BattleHUD.myIconGrinds[i].sprite = BattleHUD.defenseIcon;
+						break;
+
+					case "blind":
+						BattleHUD.myIconGrinds[i].sprite = BattleHUD.blindIcon;
+						break;
+				}
+
+				i = BattleHUD.grindMax;
+			}
+		}
+	}
+
+	public static void PutIconOut(string debuff)
+	{
+		for (int i = 0; i < BattleHUD.grindMax; i++)
+		{
+
+			if (BattleHUD.myIconGrinds[i].sprite.name == debuff)
+			{
+				BattleHUD.myIconGrinds[i].sprite = null;
+
+				BattleHUD.myIconGrinds[i].gameObject.SetActive(false);
+
+				i = BattleHUD.grindMax;
+			}
+		}
+	}
+	
     public void PutIconIn(string debuf)
     {
 		if (debuf == "defense")
@@ -231,7 +280,7 @@ public class BattleUnit : MonoBehaviour
 		}
 
 	}
-
+	*/
 
 	#endregion
 

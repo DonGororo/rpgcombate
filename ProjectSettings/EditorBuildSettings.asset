@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Battle 2 Electric boongaloo.unity
+    guid: 1710314dca633d14fae991454f51db8e
+  - enabled: 1
+    path: Assets/Scenes/EndGameScreen.unity
+    guid: 19b7df45e29d4f14fb2472f545883d08
   m_configObjects: {}

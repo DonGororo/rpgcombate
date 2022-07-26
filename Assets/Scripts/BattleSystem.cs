@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 /// <summary>
 /// Parte de la logica del sistema de combate... diosito tengame en gracia porque aqui voy a hacer un destrozo
@@ -244,14 +245,18 @@ public class BattleSystem : MonoBehaviour
 
 	void EndBattle()
 	{
+
+		SceneManager.LoadScene("EndGameScreen");
+		/*
 		if (state == BattleState.WON)
-		{
+			
 			dialogueText.text = "You won the battle!";
 		}
 		else if (state == BattleState.LOST)
 		{
 			dialogueText.text = "You were defeated.";
 		}
+		*/
 	}
 
     #endregion

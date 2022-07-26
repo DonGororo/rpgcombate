@@ -12,9 +12,11 @@ public class BattleHUD : MonoBehaviour
     [SerializeField] TextMeshProUGUI hpText;
 
     [SerializeField] Slider mpSlider;
-    [SerializeField] TextMeshProUGUI mpText;  
+    [SerializeField] TextMeshProUGUI mpText;
 
-    public void SetHUD(BattleUnit battleUnit)
+    public GameObject[] buffsIcons;
+
+    public void SetHUD(BattleUnit battleUnit, bool itsEnemy)
     {
         nameText.text = battleUnit.unitName;
 
@@ -22,11 +24,14 @@ public class BattleHUD : MonoBehaviour
         hpSlider.value = battleUnit.currentHP;
         hpText.text = battleUnit.maxHP + "/" + battleUnit.maxHP;
 
-        //Como el enemigo no tiene una barra de mana visible, si no esta a?adida simplemente no se ejecutara
-        if (mpSlider != null || mpText != null)
+        mpSlider.maxValue = battleUnit.maxMP;
+        mpSlider.value = battleUnit.currentMP;
+        mpText.text = battleUnit.maxMP + "/" + battleUnit.maxMP;
+
+        if (itsEnemy)
         {
-            mpSlider.value = mpSlider.maxValue = battleUnit.maxMP;
-            mpText.text = battleUnit.maxMP + "/" + battleUnit.maxMP;
+            mpSlider.gameObject.SetActive(false);
+            mpText.gameObject.SetActive(false);
         }
     }
 

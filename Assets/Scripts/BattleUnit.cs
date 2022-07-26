@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using TMPro;
 using Random = UnityEngine.Random;
 /// <summary>
 /// Este script contiene todos los datos de la unidad, incluido estadisticas base y modificadores
@@ -16,8 +17,9 @@ public class BattleUnit : MonoBehaviour
 	[Header("Debuffs Zone")]
 	public float blindMissChange = 0.5f;
 	public int defNullifiedDamage =2;
-	
+
 	[Header("Basic Parameters")]
+	public bool itsEnemyUnit;
 	public string unitName;
 	public int currentHP, maxHP;
 	public int currentMP, maxMP;
@@ -73,7 +75,7 @@ public class BattleUnit : MonoBehaviour
 		anim.runtimeAnimatorController = animOverride;
 
 		HUD = GameObject.FindGameObjectWithTag(HUDtag).GetComponent<BattleHUD>();
-		HUD.SetHUD(this);
+		HUD.SetHUD(this, itsEnemyUnit);
 	}
 
     public void ReduceBuffTurn()
@@ -161,13 +163,16 @@ public class BattleUnit : MonoBehaviour
         {
 			blinded = true;
 			CheckBuffs += Blinded;
+			HUD.buffsIcons[0].SetActive(true);
+            HUD.buffsIcons[0].GetComponentInChildren<TextMeshProUGUI>().text = debuffTurns[0].ToString();
         }
         else 
         {
 			blinded=false;
 			CheckBuffs -= Blinded;
+			HUD.buffsIcons[0].SetActive(false);
 		}
-    }
+	}
 
 	public void InDefense(int turns = 0)
 	{
@@ -176,11 +181,15 @@ public class BattleUnit : MonoBehaviour
 		{
 			defended = true;
 			CheckBuffs += InDefense;
+			HUD.buffsIcons[1].SetActive(true);
+			HUD.buffsIcons[1].GetComponentInChildren<TextMeshProUGUI>().text = debuffTurns[1].ToString();
+
 		}
 		else
 		{
 			defended = false;
 			CheckBuffs -= InDefense;
+			HUD.buffsIcons[1].SetActive(false);
 		}
 	}
 

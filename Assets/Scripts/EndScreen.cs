@@ -4,7 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class EndScreen : MonoBehaviour
 {
+
+    public GameObject winScreen;
+
+    public GameObject loseScreen;
     
+    public void Start()
+    {
+        
+        if (BattleSystem.state == BattleState.WON)
+        {
+            winScreen.SetActive(true);
+        }
+        else if (BattleSystem.state == BattleState.LOST)
+        {
+            loseScreen.SetActive(true);
+        }
+
+    }
+
+
     public void RepeatButton()
     {
         SceneManager.LoadScene("Battle 2 Electric boongaloo");
@@ -12,8 +31,9 @@ public class EndScreen : MonoBehaviour
 
     public void ExitGameButton()
     {
-        Application.Quit();
         UnityEditor.EditorApplication.isPlaying = false;
+
+        Application.Quit();
     }
 
 }

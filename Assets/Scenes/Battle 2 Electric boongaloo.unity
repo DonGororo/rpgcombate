@@ -843,11 +843,11 @@ MonoBehaviour:
   dialogueText: {fileID: 815529362}
   playerHUD: {fileID: 1847549075}
   enemyHUD: {fileID: 0}
-  state: 0
   spellButton: {fileID: 7369330044433177026, guid: be97100af80db874d95ba7ec19fe3d44, type: 3}
   spellBox: {fileID: 1187387183}
   defenseDuration: 1
   ButtonPanel: {fileID: 932322368}
+  animTimer: 1.2
 --- !u!4 &932186846
 Transform:
   m_ObjectHideFlags: 0

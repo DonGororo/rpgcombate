@@ -28,7 +28,7 @@ public class BattleSystem : MonoBehaviour
 	[SerializeField] BattleHUD playerHUD;
 	[SerializeField] BattleHUD enemyHUD;
 
-	[SerializeField] BattleState state;
+	[SerializeField] public static BattleState state;
 
 	[Header("Spells Zone")]
 	[SerializeField] GameObject spellButton;
@@ -37,7 +37,13 @@ public class BattleSystem : MonoBehaviour
 	[SerializeField] int defenseDuration;
 
 	[SerializeField] GameObject ButtonPanel;
-    #endregion
+	[SerializeField] float animTimer;
+	#endregion
+
+	private void Awake()
+    {
+        
+    }
 
     private void Start()
     {
@@ -96,8 +102,8 @@ public class BattleSystem : MonoBehaviour
 
 		StartCoroutine(EnableActionButtons(false));
 
-		yield return new WaitForSeconds(0.1f);
-		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+		yield return new WaitForSeconds(animTimer);
+		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		TurnSelector(isDead);
 	}
@@ -106,7 +112,7 @@ public class BattleSystem : MonoBehaviour
 		spellBox.SetActive(false);
 		bool isDead = false;
 
-		if (attaker.currentMP > spell.manaCost)
+		if (attaker.currentMP >= spell.manaCost)
 		{
 			ReduceMP(spell.manaCost, attaker);
 			attaker.PlaySpellAttackClip(spell.customSound);
@@ -163,8 +169,8 @@ public class BattleSystem : MonoBehaviour
 
 			StartCoroutine(EnableActionButtons(false));
 
-			yield return new WaitForSeconds(0.1f);
-			yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+			yield return new WaitForSeconds(animTimer);
+			//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 			TurnSelector(isDead);
 		}
@@ -245,18 +251,7 @@ public class BattleSystem : MonoBehaviour
 
 	void EndBattle()
 	{
-
 		SceneManager.LoadScene("EndGameScreen");
-		/*
-		if (state == BattleState.WON)
-			
-			dialogueText.text = "You won the battle!";
-		}
-		else if (state == BattleState.LOST)
-		{
-			dialogueText.text = "You were defeated.";
-		}
-		*/
 	}
 
     #endregion
@@ -268,8 +263,8 @@ public class BattleSystem : MonoBehaviour
 		dialogueText.text = "You are on guard!";
 
 		state = BattleState.ENEMYTURN;
-		yield return new WaitForSeconds(0.1f);
-		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+		yield return new WaitForSeconds(animTimer);
+		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		EnemyTurn();
 	}

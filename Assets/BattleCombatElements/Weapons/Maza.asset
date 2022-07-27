@@ -15,4 +15,5 @@ MonoBehaviour:
   name: Maza
   minDamage: 7
   maxDamage: 10
-  accuracityModifier: 0
+  customAnimation: {fileID: 0}
+  customSound: {fileID: 0}

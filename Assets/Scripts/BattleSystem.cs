@@ -13,43 +13,43 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST, BUSY }
 public class BattleSystem : MonoBehaviour
 {
     #region Variables
+	[SerializeField] public static BattleState state;
+
     [Header("Battle Zone")]
+
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] GameObject enemyPrefab;
 
-	[SerializeField] Transform playerPosition;
-	[SerializeField] Transform enemyPosition;
+	[SerializeField] Transform playerPosition, enemyPosition;
 
-	BattleUnit playerUnit;
-	BattleUnit enemyUnit;
+	BattleUnit playerUnit , enemyUnit;
 
 	[SerializeField] TextMeshProUGUI dialogueText;
+	[SerializeField] GameObject ButtonPanel;
 
-	[SerializeField] BattleHUD playerHUD;
-	[SerializeField] BattleHUD enemyHUD;
-
-	[SerializeField] public static BattleState state;
 
 	[Header("Spells Zone")]
-	[SerializeField] GameObject spellButton;
-	[SerializeField] GameObject spellBox;
+	[SerializeField] GameObject spellButtonPf;
+	[SerializeField] GameObject spellBoxPanel;
 
+    [Header("Miscelanea")]
 	[SerializeField] int defenseDuration;
 
-	[SerializeField] GameObject ButtonPanel;
-	[SerializeField] float animTimer;
+	[SerializeField] float animTransition = 0.26f;
 	#endregion
-
-	private void Awake()
-    {
-        
-    }
 
     private void Start()
     {
         state = BattleState.START;
 		StartCoroutine(SetupBattle());
 		CreateSpellsButtons();
+    }
+
+    private void Update()
+    {
+		// Si pulsas espacio todo el juego va FASTO
+		if (Input.GetKey(KeyCode.Space)) Time.timeScale = 2;
+		else Time.timeScale = 1;
     }
     IEnumerator SetupBattle()
 	{
@@ -102,14 +102,17 @@ public class BattleSystem : MonoBehaviour
 
 		StartCoroutine(EnableActionButtons(false));
 
-		yield return new WaitForSeconds(animTimer);
+		//	Espera de la transicion de las animaciones
+		yield return new WaitForSeconds(animTransition);
+		//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
+		yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		TurnSelector(isDead);
 	}
 	IEnumerator SpellTarget(Spell spell, BattleUnit attaker, BattleUnit target)
     {
-		spellBox.SetActive(false);
+		spellBoxPanel.SetActive(false);
 		bool isDead = false;
 
 		if (attaker.currentMP >= spell.manaCost)
@@ -169,8 +172,9 @@ public class BattleSystem : MonoBehaviour
 
 			StartCoroutine(EnableActionButtons(false));
 
-			yield return new WaitForSeconds(animTimer);
-			//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
+			yield return new WaitForSeconds(animTransition);
+			yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
 
 			TurnSelector(isDead);
 		}
@@ -252,9 +256,19 @@ public class BattleSystem : MonoBehaviour
 	void EndBattle()
 	{
 		SceneManager.LoadScene("EndGameScreen");
+		/*
+		if (state == BattleState.WON)
+			
+			dialogueText.text = "You won the battle!";
+		}
+		else if (state == BattleState.LOST)
+		{
+			dialogueText.text = "You were defeated.";
+		}
+		*/
 	}
 
-    #endregion
+	#endregion
 
 	IEnumerator PlayerDefending()
     {
@@ -263,7 +277,8 @@ public class BattleSystem : MonoBehaviour
 		dialogueText.text = "You are on guard!";
 
 		state = BattleState.ENEMYTURN;
-		yield return new WaitForSeconds(animTimer);
+		yield return new WaitForSeconds(animTransition);
+		yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		EnemyTurn();
@@ -289,11 +304,11 @@ public class BattleSystem : MonoBehaviour
     {
         foreach (Spell spell in playerUnit.spells)
         {
-			GameObject button = Instantiate(spellButton, spellBox.transform);
+			GameObject button = Instantiate(spellButtonPf, spellBoxPanel.transform);
 			button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = spell.spellName + "/" + spell.manaCost + "MP";
 
 			button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(SpellTarget(spell, playerUnit, enemyUnit)));
-			spellBox.SetActive(false);
+			spellBoxPanel.SetActive(false);
 		}
     }
 
@@ -301,8 +316,8 @@ public class BattleSystem : MonoBehaviour
     {
 		dialogueText.text = null;
 
-		if(!spellBox.activeInHierarchy) spellBox.SetActive(true);
-		else spellBox.SetActive(false);
+		if(!spellBoxPanel.activeInHierarchy) spellBoxPanel.SetActive(true);
+		else spellBoxPanel.SetActive(false);
     }
 
     #region Misc
@@ -343,6 +358,33 @@ public class BattleSystem : MonoBehaviour
         {
 			actionButtons[i].interactable = _bool;
         }
+    }
+	float ReturnCurrentClipDuration(BattleUnit target)
+    {
+		float duration = target.anim.GetCurrentAnimatorStateInfo(0).length;
+		print(target.name + " / " + duration + " / " + target.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+		return duration;
+    }
+
+	float CompareCurrentClipDuration(BattleUnit first, BattleUnit second)
+    {
+		float firstDuration = ReturnCurrentClipDuration(first);
+		float secodDuration = ReturnCurrentClipDuration(second);
+
+
+		//print("primero" + " / " + firstDuration + " / " + first.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+		//print("segundo" + " / " + secodDuration + " / " + second.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+		if (firstDuration == secodDuration || firstDuration > secodDuration)
+        {
+			print("Primero elegido");
+			return firstDuration;
+        }
+		else
+        {
+			print("Segundo elegido");
+			return secodDuration;
+        }
+
     }
     #endregion
 

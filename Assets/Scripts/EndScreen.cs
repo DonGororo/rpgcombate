@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 public class EndScreen : MonoBehaviour
 {
 
-    public GameObject winScreen;
-
-    public GameObject loseScreen;
+    [SerializeField] TextMeshProUGUI endText;
     
     public void Start()
     {
         
         if (BattleSystem.state == BattleState.WON)
         {
-            winScreen.SetActive(true);
+            endText.text = "Congratulations, you have won both the battle and all the enemies. Want to repear the experience?";
         }
         else if (BattleSystem.state == BattleState.LOST)
         {
-            loseScreen.SetActive(true);
+            endText.text = "You may have lost, but at least you will never be alone.  Will you submit or try your chances again?";
         }
 
     }
@@ -26,7 +25,7 @@ public class EndScreen : MonoBehaviour
 
     public void RepeatButton()
     {
-        SceneManager.LoadScene("Battle 2 Electric boongaloo");
+        SceneManager.LoadScene(0);
     }
 
     public void ExitGameButton()

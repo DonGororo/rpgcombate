@@ -297,7 +297,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1365
-        y: 1232
+        y: 1235
         width: 619
         height: 145
       alignment: 0
@@ -503,7 +503,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIAction_spell_selecte
+      name: UIAction_hover
       rect:
         serializedVersion: 2
         x: 1362
@@ -524,11 +524,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIAction_spell_highlight
+      name: UIAction_highlight
       rect:
         serializedVersion: 2
         x: 1363
-        y: 166
+        y: 165
         width: 619
         height: 145
       alignment: 0
@@ -545,11 +545,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIAction_spell_default
+      name: UIAction_default
       rect:
         serializedVersion: 2
         x: 1364
-        y: 16
+        y: 15
         width: 619
         height: 145
       alignment: 0
@@ -561,6 +561,132 @@ TextureImporter:
       bones: []
       spriteID: 5a11236d93af7f9499f259b65f73e763
       internalID: 1253554840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIAtt_icon_deact
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 1824
+        width: 103
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4428070f8cf8c654f9f9f38e5b115315
+      internalID: 1537617090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIAtt_icon_active
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 1824
+        width: 103
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f1234d969bd66d449750916d4a3c444
+      internalID: 1849166357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UISpell_icon_deact
+      rect:
+        serializedVersion: 2
+        x: 889
+        y: 1830
+        width: 105
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2979e5f6947130b438c90950641a1d68
+      internalID: -393506126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UISpell_icon_active
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 1830
+        width: 105
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08c1f7e265ed3f41b475c2736f204d5
+      internalID: 1040359816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIDeff_icon_deact
+      rect:
+        serializedVersion: 2
+        x: 1159
+        y: 1826
+        width: 78
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e816fd4f45b9694792da6e5661d7bdf
+      internalID: 614072939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UIDeff_icon_active
+      rect:
+        serializedVersion: 2
+        x: 1256
+        y: 1826
+        width: 78
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ded7a45a6ab8c408f04d907dc1086e
+      internalID: -496000878
       vertices: []
       indices: 
       edges: []
@@ -582,32 +708,38 @@ TextureImporter:
       UISpellButton_Highlight: 1748405678
       UI Atlas_32: 1173711408
       UIProfile_Background: 762247434
+      UIAtt_icon_active: 1849166357
+      UI Atlas_4: -2096687392
       UIBar_Frame: -1210355151
+      UIDeff_icon_deact: 614072939
+      UIAction_default: 1253554840
+      UIAction_highlight: -446539085
       UIBuff_Icon_Blind: 1684820269
       UIAction_defence_highlight: -2124119013
       UISpellBox_Background: 459486632
       UIAction_attack_Selected: -221469865
+      UISpell_icon_deact: -393506126
       UI Atlas_11: -538100117
+      UIDeff_icon_active: -496000878
       UIBuff_Icon_Defense: 2022018311
       UISpellButton_Select: 1436620786
       UI Atlas_10: 1975942739
       UI Atlas_18: 810148986
-      UI Atlas_7: -496000878
+      UISpell_icon_active: 1040359816
+      UIAtt_icon_deact: 1537617090
       UIStatus_Background: 777479620
+      UIAction_hover: -1786588599
       UIBar_Fill: -879481447
       UIAction_attack_default: 1034350280
       UISpellButton_Unable: 494071671
-      UI Atlas_6: 614072939
       UI Atlas_21: -1930529486
       UI Atlas_22: 1761849412
       UIAction_defence_selected: 1246071814
       UI Atlas_20: 512383399
       UIProfile_Frame: -1121067103
       UISpellButton_Default: 466688839
-      UIAction_spell_highlight: -446539085
       UIBar_Background: 933727644
-      UIAction_spell_default: 1253554840
-      UIAction_spell_selecte: -1786588599
+      UI Atlas_2: -1425007486
       UI Atlas_19: 1015626529
   spritePackingTag: 
   pSDRemoveMatte: 0

@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.24705882}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.31764707}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3536,9 +3536,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -221469865, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
-    m_PressedSprite: {fileID: 1236565561, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
-    m_SelectedSprite: {fileID: 1236565561, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+    m_HighlightedSprite: {fileID: -1786588599, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+    m_PressedSprite: {fileID: -446539085, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+    m_SelectedSprite: {fileID: -446539085, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3583,7 +3583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1034350280, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+  m_Sprite: {fileID: 1253554840, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4525,9 +4525,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 1246071814, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
-    m_PressedSprite: {fileID: -2124119013, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
-    m_SelectedSprite: {fileID: -2124119013, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+    m_HighlightedSprite: {fileID: -1786588599, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+    m_PressedSprite: {fileID: -446539085, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+    m_SelectedSprite: {fileID: -446539085, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4572,7 +4572,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1573069171, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
+  m_Sprite: {fileID: 1253554840, guid: a439df1b1a7a27e458b3536550fe268c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

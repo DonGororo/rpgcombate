@@ -313,10 +313,27 @@ public class BattleSystem : MonoBehaviour
 			_spellName.text = spell.spellName;
 			_manaCost.text = spell.manaCost + "MP";
 
+			/*El color de los textos tiene que cambiar al interactuar con los botones, aquí te dejo los valores. Recuerda usar new color32 
+			
+			Spell Name:
+				Normal (143, 133, 127, 255) Está en el prefab
+				Hover (114, 103, 99, 255)
+				Click (86, 64, 55, 255)
+				Disabled (165, 164, 164, 255)
+
+			Mana Cost:
+				Normal (121, 164, 192, 255) Está en el prefab
+				Hover (66, 136, 180, 255)
+				Click (80, 176, 237, 255)
+				Disabled ( 201, 152, 151, 255 ) Ya esta
+			
+			*/
+			
 			if(spell.manaCost > target.currentMP)
             {
 				button.GetComponent<Button>().interactable = false;
-				_manaCost.color = Color.red;
+				_manaCost.color = new Color32( 201, 152, 151, 255 );
+				
 			}
 
 			button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(SpellTarget(spell, target, enemyUnit)));

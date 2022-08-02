@@ -75,7 +75,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290815097
+    rgba: 4288125129
   m_fontColor: {r: 0.4745098, g: 0.6431373, b: 0.7529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286547343
+    rgba: 4288980133
   m_fontColor: {r: 0.56078434, g: 0.52156866, b: 0.49803922, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 3966840327716789101}
   - component: {fileID: 3966840327716789098}
   - component: {fileID: 3966840327716789099}
+  - component: {fileID: 4976901950697488659}
   m_Layer: 5
   m_Name: SpellButtonV3
   m_TagString: Untagged
@@ -368,7 +369,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -393,3 +394,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &4976901950697488659
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966840327716789097}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f8005b603bb4dbb4a85e01b039fe52c0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

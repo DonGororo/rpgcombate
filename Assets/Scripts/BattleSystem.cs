@@ -35,6 +35,7 @@ public class BattleSystem : MonoBehaviour
 
     [Header("Miscelanea")]
 	[SerializeField] int defenseDuration;
+	[SerializeField] Button actionButtonSpell;
 
 	[SerializeField] float animTransition = 0.26f;
 	#endregion
@@ -75,6 +76,7 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator AttackTarget(BattleUnit attaker, BattleUnit target, int weaponSlot = 0)
 	{
 		bool isDead = false;
+		DestroySpellsInSpellBox();
 
 		if (attaker.weapons[weaponSlot].customAnimation != null)
 		{
@@ -276,6 +278,8 @@ public class BattleSystem : MonoBehaviour
 
 		dialogueText.text = "You are on guard!";
 
+		playerUnit.anim.SetTrigger("Defend");
+
 		state = BattleState.ENEMYTURN;
 		yield return new WaitForSeconds(animTransition);
 		yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
@@ -349,8 +353,12 @@ public class BattleSystem : MonoBehaviour
 		{
 			CreateSpellsButtons(playerUnit);
 			spellBoxPanel.SetActive(true);
+			actionButtonSpell.animator.SetBool("SelectedBool", true);
 		}
-		else DestroySpellsInSpellBox();
+		else
+		{
+			DestroySpellsInSpellBox();
+		};
     }
 
     #region Misc
@@ -358,7 +366,9 @@ public class BattleSystem : MonoBehaviour
 	void DestroySpellsInSpellBox()
     {
 		spellBoxPanel.SetActive(false);
-        foreach (Transform child in spellBoxPanel.transform)
+		actionButtonSpell.animator.SetBool("SelectedBool", false);
+		actionButtonSpell.animator.SetTrigger("Normal");
+		foreach (Transform child in spellBoxPanel.transform)
         {
 			GameObject.Destroy(child.gameObject);
 		}
@@ -401,10 +411,10 @@ public class BattleSystem : MonoBehaviour
 			actionButtons[i].interactable = _bool;
         }
     }
+
 	float ReturnCurrentClipDuration(BattleUnit target)
     {
 		float duration = target.anim.GetCurrentAnimatorStateInfo(0).length;
-		print(target.name + " / " + duration + " / " + target.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
 		return duration;
     }
 

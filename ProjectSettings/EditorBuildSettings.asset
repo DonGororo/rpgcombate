@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Battle 2 Electric boongaloo.unity
+    path: Assets/Scenes/Battle 2 UI redesign.unity
     guid: 1710314dca633d14fae991454f51db8e
   - enabled: 1
     path: Assets/Scenes/EndGameScreen.unity

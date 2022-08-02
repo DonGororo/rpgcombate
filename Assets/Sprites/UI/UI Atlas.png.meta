@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI Atlas_0
+      name: UIBar_Frame
       rect:
         serializedVersion: 2
         x: 7
@@ -112,7 +112,7 @@ TextureImporter:
         width: 535
         height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -125,7 +125,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_1
+      name: UIBuff_Icon_Defense
       rect:
         serializedVersion: 2
         x: 562
@@ -133,7 +133,7 @@ TextureImporter:
         width: 61
         height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -146,7 +146,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_2
+      name: UIProfile_Background
       rect:
         serializedVersion: 2
         x: 647
@@ -154,7 +154,7 @@ TextureImporter:
         width: 311
         height: 276
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,7 +167,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_3
+      name: UIProfile_Frame
       rect:
         serializedVersion: 2
         x: 965
@@ -175,7 +175,7 @@ TextureImporter:
         width: 307
         height: 266
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,7 +188,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_4
+      name: UIBar_Background
       rect:
         serializedVersion: 2
         x: 10
@@ -196,7 +196,7 @@ TextureImporter:
         width: 530
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -209,7 +209,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_5
+      name: UIBar_Fill
       rect:
         serializedVersion: 2
         x: 10
@@ -217,7 +217,7 @@ TextureImporter:
         width: 530
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -230,15 +230,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_9
+      name: UISpellButton_Default
       rect:
         serializedVersion: 2
-        x: 23
+        x: 24
         y: 1496
-        width: 587
+        width: 585
         height: 159
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -251,7 +251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_12
+      name: UIBuff_Icon_Blind
       rect:
         serializedVersion: 2
         x: 647
@@ -259,7 +259,7 @@ TextureImporter:
         width: 106
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -272,7 +272,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_13
+      name: UISpellButton_Highlight
       rect:
         serializedVersion: 2
         x: 22
@@ -280,7 +280,7 @@ TextureImporter:
         width: 587
         height: 159
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -293,7 +293,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_14
+      name: UIAction_attack_default
       rect:
         serializedVersion: 2
         x: 1365
@@ -301,7 +301,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -314,7 +314,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_15
+      name: UISpellButton_Select
       rect:
         serializedVersion: 2
         x: 21
@@ -322,7 +322,7 @@ TextureImporter:
         width: 587
         height: 159
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -335,7 +335,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_16
+      name: UIAction_attack_Selected
       rect:
         serializedVersion: 2
         x: 1363
@@ -343,7 +343,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -356,15 +356,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_17
+      name: UISpellButton_Unable
       rect:
         serializedVersion: 2
         x: 22
         y: 979
-        width: 587
+        width: 586
         height: 159
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -377,7 +377,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_23
+      name: UIAction_attack_highlight
       rect:
         serializedVersion: 2
         x: 1362
@@ -385,7 +385,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -398,7 +398,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_24
+      name: UIStatus_Background
       rect:
         serializedVersion: 2
         x: 20
@@ -406,7 +406,7 @@ TextureImporter:
         width: 1097
         height: 277
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -419,7 +419,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_25
+      name: UIAction_defence_default
       rect:
         serializedVersion: 2
         x: 1361
@@ -427,7 +427,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -440,7 +440,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_26
+      name: UISpellBox_Background
       rect:
         serializedVersion: 2
         x: 15
@@ -448,7 +448,7 @@ TextureImporter:
         width: 1337
         height: 646
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -461,7 +461,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_27
+      name: UIAction_defence_selected
       rect:
         serializedVersion: 2
         x: 1361
@@ -469,7 +469,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -482,7 +482,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_28
+      name: UIAction_defence_highlight
       rect:
         serializedVersion: 2
         x: 1362
@@ -490,7 +490,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -503,7 +503,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_29
+      name: UIAction_spell_selecte
       rect:
         serializedVersion: 2
         x: 1362
@@ -511,7 +511,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -524,7 +524,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_30
+      name: UIAction_spell_highlight
       rect:
         serializedVersion: 2
         x: 1363
@@ -532,7 +532,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -545,7 +545,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Atlas_31
+      name: UIAction_spell_default
       rect:
         serializedVersion: 2
         x: 1364
@@ -553,7 +553,7 @@ TextureImporter:
         width: 619
         height: 145
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -576,38 +576,38 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      UIAction_attack_highlight: 1236565561
       UI Atlas_8: -407560516
+      UIAction_defence_default: 1573069171
+      UISpellButton_Highlight: 1748405678
       UI Atlas_32: 1173711408
-      UI Atlas_4: 933727644
-      UI Atlas_1: 2022018311
-      UI Atlas_5: -879481447
-      UI Atlas_27: 1246071814
-      UI Atlas_13: 1748405678
-      UI Atlas_17: 494071671
-      UI Atlas_28: -2124119013
-      UI Atlas_23: 1236565561
+      UIProfile_Background: 762247434
+      UIBar_Frame: -1210355151
+      UIBuff_Icon_Blind: 1684820269
+      UIAction_defence_highlight: -2124119013
+      UISpellBox_Background: 459486632
+      UIAction_attack_Selected: -221469865
       UI Atlas_11: -538100117
-      UI Atlas_16: -221469865
-      UI Atlas_9: 466688839
+      UIBuff_Icon_Defense: 2022018311
+      UISpellButton_Select: 1436620786
       UI Atlas_10: 1975942739
       UI Atlas_18: 810148986
       UI Atlas_7: -496000878
-      UI Atlas_0: -1210355151
-      UI Atlas_12: 1684820269
-      UI Atlas_14: 1034350280
-      UI Atlas_31: 1253554840
-      UI Atlas_30: -446539085
+      UIStatus_Background: 777479620
+      UIBar_Fill: -879481447
+      UIAction_attack_default: 1034350280
+      UISpellButton_Unable: 494071671
       UI Atlas_6: 614072939
-      UI Atlas_25: 1573069171
-      UI Atlas_24: 777479620
       UI Atlas_21: -1930529486
       UI Atlas_22: 1761849412
-      UI Atlas_3: -1121067103
+      UIAction_defence_selected: 1246071814
       UI Atlas_20: 512383399
-      UI Atlas_29: -1786588599
-      UI Atlas_26: 459486632
-      UI Atlas_15: 1436620786
-      UI Atlas_2: 762247434
+      UIProfile_Frame: -1121067103
+      UISpellButton_Default: 466688839
+      UIAction_spell_highlight: -446539085
+      UIBar_Background: 933727644
+      UIAction_spell_default: 1253554840
+      UIAction_spell_selecte: -1786588599
       UI Atlas_19: 1015626529
   spritePackingTag: 
   pSDRemoveMatte: 0

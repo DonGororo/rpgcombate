@@ -28,6 +28,7 @@ public class BattleSystem : MonoBehaviour
 	[SerializeField] GameObject ButtonPanel;
 
 
+
 	[Header("Spells Zone")]
 	[SerializeField] GameObject spellButtonPf;
 	[SerializeField] GameObject spellBoxPanel;
@@ -42,7 +43,6 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.START;
 		StartCoroutine(SetupBattle());
-		CreateSpellsButtons();
     }
 
     private void Update()
@@ -112,7 +112,7 @@ public class BattleSystem : MonoBehaviour
 	}
 	IEnumerator SpellTarget(Spell spell, BattleUnit attaker, BattleUnit target)
     {
-		spellBoxPanel.SetActive(false);
+		DestroySpellsInSpellBox();
 		bool isDead = false;
 
 		if (attaker.currentMP >= spell.manaCost)
@@ -300,15 +300,27 @@ public class BattleSystem : MonoBehaviour
 		StartCoroutine(PlayerDefending());
 	}
 
-	void CreateSpellsButtons()
+	void CreateSpellsButtons(BattleUnit target)
     {
-        foreach (Spell spell in playerUnit.spells)
+        foreach (Spell spell in target.spells)
         {
 			GameObject button = Instantiate(spellButtonPf, spellBoxPanel.transform);
-			button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = spell.spellName + "/" + spell.manaCost + "MP";
 
-			button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(SpellTarget(spell, playerUnit, enemyUnit)));
-			spellBoxPanel.SetActive(false);
+			TextMeshProUGUI _spellName = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+			TextMeshProUGUI _manaCost = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+
+			_spellName.text = spell.spellName;
+			_manaCost.text = spell.manaCost + "MP";
+
+			if(spell.manaCost > target.currentMP)
+            {
+				button.GetComponent<Button>().interactable = false;
+				_manaCost.color = Color.red;
+			}
+
+			button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(SpellTarget(spell, target, enemyUnit)));
+			spellBoxPanel.SetActive(true);
 		}
     }
 
@@ -316,11 +328,24 @@ public class BattleSystem : MonoBehaviour
     {
 		dialogueText.text = null;
 
-		if(!spellBoxPanel.activeInHierarchy) spellBoxPanel.SetActive(true);
-		else spellBoxPanel.SetActive(false);
+		if (!spellBoxPanel.activeInHierarchy)
+		{
+			CreateSpellsButtons(playerUnit);
+			spellBoxPanel.SetActive(true);
+		}
+		else DestroySpellsInSpellBox();
     }
 
     #region Misc
+
+	void DestroySpellsInSpellBox()
+    {
+		spellBoxPanel.SetActive(false);
+        foreach (Transform child in spellBoxPanel.transform)
+        {
+			GameObject.Destroy(child.gameObject);
+		}
+	}
 
 	bool DamageTarget(int dmg, BattleUnit target)
     {

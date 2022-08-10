@@ -176,7 +176,11 @@ public class BattleSystem : MonoBehaviour
 
 			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
 			yield return new WaitForSeconds(animTransition);
-			yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
+			if (spell.spellType == Spell.SpellType.Damage)
+				yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
+			else
+				yield return new WaitForSeconds(ReturnCurrentClipDuration(attaker));
+
 
 			TurnSelector(isDead);
 		}

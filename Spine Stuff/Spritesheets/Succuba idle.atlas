@@ -1,0 +1,384 @@
+
+Succuba idle.png
+size: 32768,4096
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Succuba-animation_00
+  rotate: false
+  xy: 2, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_01
+  rotate: false
+  xy: 1163, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_02
+  rotate: false
+  xy: 2324, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_03
+  rotate: false
+  xy: 3485, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_04
+  rotate: false
+  xy: 4646, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_05
+  rotate: false
+  xy: 5807, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_06
+  rotate: false
+  xy: 6968, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_07
+  rotate: false
+  xy: 8129, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_08
+  rotate: false
+  xy: 9290, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_09
+  rotate: false
+  xy: 10451, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_10
+  rotate: false
+  xy: 11612, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_11
+  rotate: false
+  xy: 12773, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_12
+  rotate: false
+  xy: 13934, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_13
+  rotate: false
+  xy: 15095, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_14
+  rotate: false
+  xy: 16256, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_15
+  rotate: false
+  xy: 17417, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_16
+  rotate: false
+  xy: 18578, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_17
+  rotate: false
+  xy: 19739, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_18
+  rotate: false
+  xy: 20900, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_19
+  rotate: false
+  xy: 22061, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_20
+  rotate: false
+  xy: 23222, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_21
+  rotate: false
+  xy: 24383, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_22
+  rotate: false
+  xy: 25544, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_23
+  rotate: false
+  xy: 26705, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_24
+  rotate: false
+  xy: 27866, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_25
+  rotate: false
+  xy: 29027, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_26
+  rotate: false
+  xy: 30188, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_27
+  rotate: false
+  xy: 31349, 2
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_28
+  rotate: false
+  xy: 2, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_29
+  rotate: false
+  xy: 1163, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_30
+  rotate: false
+  xy: 2324, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_31
+  rotate: false
+  xy: 3485, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_32
+  rotate: false
+  xy: 4646, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_33
+  rotate: false
+  xy: 5807, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_34
+  rotate: false
+  xy: 6968, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_35
+  rotate: false
+  xy: 8129, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_36
+  rotate: false
+  xy: 9290, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_37
+  rotate: false
+  xy: 10451, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_38
+  rotate: false
+  xy: 11612, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_39
+  rotate: false
+  xy: 12773, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_40
+  rotate: false
+  xy: 13934, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_41
+  rotate: false
+  xy: 15095, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_42
+  rotate: false
+  xy: 16256, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_43
+  rotate: false
+  xy: 17417, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_44
+  rotate: false
+  xy: 18578, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_45
+  rotate: false
+  xy: 19739, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_46
+  rotate: false
+  xy: 20900, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_47
+  rotate: false
+  xy: 22061, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_48
+  rotate: false
+  xy: 23222, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_49
+  rotate: false
+  xy: 24383, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_50
+  rotate: false
+  xy: 25544, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_51
+  rotate: false
+  xy: 26705, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_52
+  rotate: false
+  xy: 27866, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1
+Succuba-animation_53
+  rotate: false
+  xy: 29027, 1405
+  size: 1159, 1401
+  orig: 1159, 1401
+  offset: 0, 0
+  index: -1

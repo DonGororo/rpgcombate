@@ -1,0 +1,176 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Succuba idle
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 8192
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Standalone
+      m_MaxTextureSize: 8192
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 12
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 55d52c243d3a0594ab6121086734f3bf, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9ad11180f85bfe142a454d4f91089d58, type: 3}
+  - {fileID: 21300000, guid: 66f7c7802cb76e4438b27c080b3a7c23, type: 3}
+  - {fileID: 21300000, guid: 43003641e1ec3284081ae355d95a21bb, type: 3}
+  - {fileID: 21300000, guid: ae993c713967e5e409a5fd9711cf7b31, type: 3}
+  - {fileID: 21300000, guid: cc4c9f8106395ca4d8bc85a3817b769f, type: 3}
+  - {fileID: 21300000, guid: 6385cab2a9206b948818ec11a5b25968, type: 3}
+  - {fileID: 21300000, guid: d2c5bfd25cabc7b409d2d18c92dbeccb, type: 3}
+  - {fileID: 21300000, guid: bed39d238356bda498742c04bc152e45, type: 3}
+  - {fileID: 21300000, guid: 318b7f73b2dc78d4086092b5456f3288, type: 3}
+  - {fileID: 21300000, guid: fc6d6df35c2daa94f8c8b6d05718e4ed, type: 3}
+  - {fileID: 21300000, guid: 188bf224f09842242af00a49006b70dc, type: 3}
+  - {fileID: 21300000, guid: afc7ce648b9bc6041b7137c5422ef83e, type: 3}
+  - {fileID: 21300000, guid: fe0f16a41da8d7c4fa827df87a31c56b, type: 3}
+  - {fileID: 21300000, guid: 5bf90375f5b70f44d8164a4a2194d742, type: 3}
+  - {fileID: 21300000, guid: fde64da5bbddfe34f9cf313498d5a22e, type: 3}
+  - {fileID: 21300000, guid: b4e9f6268d427cb4b9bf579f0a3885e1, type: 3}
+  - {fileID: 21300000, guid: fbabf726f19a6a749bd8cc20e7517034, type: 3}
+  - {fileID: 21300000, guid: 84d01a5650f73f94890a64a00e42ecb4, type: 3}
+  - {fileID: 21300000, guid: c8683276ab60d9b43a0d9393f6c296e0, type: 3}
+  - {fileID: 21300000, guid: 528bb2e62371b054b969ce8bfd453c89, type: 3}
+  - {fileID: 21300000, guid: 8e020207c6a15194dbc9d522c8432165, type: 3}
+  - {fileID: 21300000, guid: b217ed37fb4dec44c917a01a2dc2ca2a, type: 3}
+  - {fileID: 21300000, guid: 83ee4e37cc9190c42965c1adff8bca55, type: 3}
+  - {fileID: 21300000, guid: b9d91147dc578ab4d813748646ab8cb8, type: 3}
+  - {fileID: 21300000, guid: b6654147005bfe0448c2701749ea44fd, type: 3}
+  - {fileID: 21300000, guid: 8acc3947da267f74f813aba46af04404, type: 3}
+  - {fileID: 21300000, guid: 4b1636a785691654485e8712b75d1edb, type: 3}
+  - {fileID: 21300000, guid: 249e6818265835a4a843010f0af77c8c, type: 3}
+  - {fileID: 21300000, guid: caef7778af05f654da7d2e39370b19c4, type: 3}
+  - {fileID: 21300000, guid: ebf77888bdc582e40ae6a46a7992931a, type: 3}
+  - {fileID: 21300000, guid: 3dd023e831d4f4a409b703d1d4eff92e, type: 3}
+  - {fileID: 21300000, guid: f1d2eff8fbd691a41b33a01e90d469eb, type: 3}
+  - {fileID: 21300000, guid: 5a67d24913e9f73449d9f79f4cb019bf, type: 3}
+  - {fileID: 21300000, guid: eba6884926c5ac54cab5bf6e7995003d, type: 3}
+  - {fileID: 21300000, guid: 627bfde9fc5653346b4210e2ef64a643, type: 3}
+  - {fileID: 21300000, guid: dd5bb71ac822bf547b38bcbdb26be2f9, type: 3}
+  - {fileID: 21300000, guid: c2fdae2a5918cd94abcac269f3ed2e82, type: 3}
+  - {fileID: 21300000, guid: 9639614a2c1eec245ad61d7555a299ff, type: 3}
+  - {fileID: 21300000, guid: 5a5f098a800d9144d87deead6aeb9273, type: 3}
+  - {fileID: 21300000, guid: f05d0c5b6f0a261428c737c1f799391b, type: 3}
+  - {fileID: 21300000, guid: 48c041bb6e938964e9e61bae4583cb18, type: 3}
+  - {fileID: 21300000, guid: 02f759bb66e9a1b4aa083bb6fb31bc8a, type: 3}
+  - {fileID: 21300000, guid: 365f499cfe021a542af27ab02db049ba, type: 3}
+  - {fileID: 21300000, guid: de2e8cbc566310f4799154794b2e4b5a, type: 3}
+  - {fileID: 21300000, guid: 8b8cf2cccf4ae2243909aeb45c3e6b66, type: 3}
+  - {fileID: 21300000, guid: da7d5dcccfe5aa24d9d748edc4661d4c, type: 3}
+  - {fileID: 21300000, guid: b95b081d1ef96a943b2323461a226a0d, type: 3}
+  - {fileID: 21300000, guid: b2f1eb3dd3dfda146ada748b3c92a4f6, type: 3}
+  - {fileID: 21300000, guid: be9d9c4d7c04b3d46b2104a4ae51fb6d, type: 3}
+  - {fileID: 21300000, guid: d65abded80b398540a7a89ef726da323, type: 3}
+  - {fileID: 21300000, guid: 482bc17eb1434b64287a2a95aac5d230, type: 3}
+  - {fileID: 21300000, guid: e469e19e62f52c84e9481c80f765e47e, type: 3}
+  - {fileID: 21300000, guid: e9e3ffef840fc024885771e5c03cc999, type: 3}
+  - {fileID: 21300000, guid: 11e495ff42d96f140b9f525580d61b06, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Succuba-idle_21
+  - Succuba-idle_02
+  - Succuba-idle_45
+  - Succuba-idle_39
+  - Succuba-idle_16
+  - Succuba-idle_17
+  - Succuba-idle_48
+  - Succuba-idle_53
+  - Succuba-idle_28
+  - Succuba-idle_34
+  - Succuba-idle_40
+  - Succuba-idle_49
+  - Succuba-idle_09
+  - Succuba-idle_30
+  - Succuba-idle_08
+  - Succuba-idle_42
+  - Succuba-idle_05
+  - Succuba-idle_15
+  - Succuba-idle_33
+  - Succuba-idle_22
+  - Succuba-idle_32
+  - Succuba-idle_14
+  - Succuba-idle_07
+  - Succuba-idle_36
+  - Succuba-idle_44
+  - Succuba-idle_35
+  - Succuba-idle_52
+  - Succuba-idle_26
+  - Succuba-idle_50
+  - Succuba-idle_31
+  - Succuba-idle_24
+  - Succuba-idle_00
+  - Succuba-idle_11
+  - Succuba-idle_41
+  - Succuba-idle_19
+  - Succuba-idle_03
+  - Succuba-idle_37
+  - Succuba-idle_12
+  - Succuba-idle_38
+  - Succuba-idle_10
+  - Succuba-idle_20
+  - Succuba-idle_23
+  - Succuba-idle_01
+  - Succuba-idle_18
+  - Succuba-idle_43
+  - Succuba-idle_51
+  - Succuba-idle_47
+  - Succuba-idle_29
+  - Succuba-idle_27
+  - Succuba-idle_04
+  - Succuba-idle_46
+  - Succuba-idle_06
+  - Succuba-idle_25
+  - Succuba-idle_13
+  m_RenderDataMap: {}
+  m_Tag: Succuba idle
+  m_IsVariant: 0

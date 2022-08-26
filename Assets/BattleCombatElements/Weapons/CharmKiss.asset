@@ -15,4 +15,5 @@ MonoBehaviour:
   name: CharmKiss
   minDamage: 7
   maxDamage: 12
-  accuracityModifier: 15
+  customAnimation: {fileID: 7400000, guid: 6e7552cf7bffb804f97f64e4c60a8155, type: 2}
+  customSound: {fileID: 0}

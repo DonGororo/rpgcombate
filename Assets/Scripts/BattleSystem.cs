@@ -37,10 +37,13 @@ public class BattleSystem : MonoBehaviour
 	[SerializeField] int defenseDuration;
 	[SerializeField] Button actionButtonSpell;
 
-	[SerializeField] float animTransition = 0.26f;
+	[SerializeField] float defaultAttackD = 0.26f;
+	[SerializeField] float customAttackD = 1.8f;
+	[SerializeField] float spellD = 2.3f;
+	[SerializeField] float defenceD = 0.3f;
 	#endregion
 
-    private void Start()
+	private void Start()
     {
         state = BattleState.START;
 		StartCoroutine(SetupBattle());
@@ -83,8 +86,14 @@ public class BattleSystem : MonoBehaviour
 			attaker.animOverride["AttackCustom"] = attaker.weapons[weaponSlot].customAnimation;
 			attaker.anim.runtimeAnimatorController = attaker.animOverride;
 			attaker.anim.SetTrigger("AttackCustom");
+			yield return new WaitForSeconds(customAttackD);
 		}
-		else attaker.anim.SetTrigger("AttackDefault");
+		else
+        {
+			attaker.anim.SetTrigger("AttackDefault");
+			yield return new WaitForSeconds(defaultAttackD);
+		}
+		
 
 		if (attaker.GetAccuracy() <= target.GetEvasion())
         {
@@ -105,7 +114,7 @@ public class BattleSystem : MonoBehaviour
 		StartCoroutine(EnableActionButtons(false));
 
 		//	Espera de la transicion de las animaciones
-		yield return new WaitForSeconds(animTransition);
+		//yield return new WaitForSeconds(animTransition);
 		//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
 		yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
@@ -119,6 +128,7 @@ public class BattleSystem : MonoBehaviour
 
 		if (attaker.currentMP >= spell.manaCost)
 		{
+			
 			ReduceMP(spell.manaCost, attaker);
 			attaker.PlaySpellAttackClip(spell.customSound);
 			if (spell.customAnimation != null)
@@ -127,9 +137,14 @@ public class BattleSystem : MonoBehaviour
 				attaker.anim.runtimeAnimatorController = attaker.animOverride;
 				attaker.anim.SetTrigger("SpellAttackCustom");
 			}
-			else attaker.anim.SetTrigger("SpellAttackDefault");
-
+			else
+            {
+				attaker.anim.SetTrigger("SpellAttackDefault");
+			}
+			
 			dialogueText.text = attaker.unitName + " used " + spell.spellName;
+
+			yield return new WaitForSeconds(spellD);
 
 			switch (spell.spellType)
 			{
@@ -175,12 +190,14 @@ public class BattleSystem : MonoBehaviour
 			StartCoroutine(EnableActionButtons(false));
 
 			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
-			yield return new WaitForSeconds(animTransition);
+			//yield return new WaitForSeconds(animTransition);
+
+			
 			if (spell.spellType == Spell.SpellType.Damage)
 				yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
 			else
 				yield return new WaitForSeconds(ReturnCurrentClipDuration(attaker));
-
+			
 
 			TurnSelector(isDead);
 		}
@@ -285,7 +302,7 @@ public class BattleSystem : MonoBehaviour
 		playerUnit.anim.SetTrigger("Defend");
 
 		state = BattleState.ENEMYTURN;
-		yield return new WaitForSeconds(animTransition);
+		yield return new WaitForSeconds(defenceD);
 		yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 

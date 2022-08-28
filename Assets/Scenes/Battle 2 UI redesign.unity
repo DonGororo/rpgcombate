@@ -2137,7 +2137,10 @@ MonoBehaviour:
   spellBoxPanel: {fileID: 1187387183}
   defenseDuration: 1
   actionButtonSpell: {fileID: 41988557}
-  animTransition: 0.26
+  defaultAttackD: 0.26
+  customAttackD: 1.8
+  spellD: 2
+  defenceD: 1.1
 --- !u!4 &932186846
 Transform:
   m_ObjectHideFlags: 0

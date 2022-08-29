@@ -37,10 +37,8 @@ public class BattleSystem : MonoBehaviour
 	[SerializeField] int defenseDuration;
 	[SerializeField] Button actionButtonSpell;
 
-	[SerializeField] float defaultAttackD = 0.26f;
-	[SerializeField] float customAttackD = 1.8f;
-	[SerializeField] float spellD = 2.3f;
-	[SerializeField] float defenceD = 0.3f;
+	public static bool animationEnd;
+	//[SerializeField] float animTransition = 0.26f;
 	#endregion
 
 	private void Start()
@@ -54,7 +52,15 @@ public class BattleSystem : MonoBehaviour
 		// Si pulsas espacio todo el juego va FASTO
 		if (Input.GetKey(KeyCode.Space)) Time.timeScale = 2;
 		else Time.timeScale = 1;
-    }
+
+
+		//animationEnd = false;
+		if (Input.GetKeyDown(KeyCode.X))
+        {
+			NextAnimation();
+		}
+
+	}
     IEnumerator SetupBattle()
 	{
 		GameObject playerGO = Instantiate(playerPrefab, playerPosition);
@@ -86,17 +92,19 @@ public class BattleSystem : MonoBehaviour
 			attaker.animOverride["AttackCustom"] = attaker.weapons[weaponSlot].customAnimation;
 			attaker.anim.runtimeAnimatorController = attaker.animOverride;
 			attaker.anim.SetTrigger("AttackCustom");
-			yield return new WaitForSeconds(customAttackD);
+			//yield return new WaitForSeconds(customAttackD);
 		}
 		else
         {
 			attaker.anim.SetTrigger("AttackDefault");
-			yield return new WaitForSeconds(defaultAttackD);
+			//yield return new WaitForSeconds(defaultAttackD);
 		}
-		
+		yield return new WaitUntil(() =>animationEnd);
+		animationEnd = false;
 
 		if (attaker.GetAccuracy() <= target.GetEvasion())
         {
+			
 			isDead = DamageTarget(attaker.GetDamage(weaponSlot), target);
 
 			if (isDead) target.anim.SetTrigger("Death");
@@ -110,13 +118,14 @@ public class BattleSystem : MonoBehaviour
 			target.PlayMissHitClip();
 			dialogueText.text = "The " + attaker.unitName + " attack missed!";
 		}
-
+		yield return new WaitUntil(() => animationEnd);
+		animationEnd = false;
 		StartCoroutine(EnableActionButtons(false));
 
 		//	Espera de la transicion de las animaciones
 		//yield return new WaitForSeconds(animTransition);
 		//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
-		yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
+		//yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		TurnSelector(isDead);
@@ -144,7 +153,9 @@ public class BattleSystem : MonoBehaviour
 			
 			dialogueText.text = attaker.unitName + " used " + spell.spellName;
 
-			yield return new WaitForSeconds(spellD);
+			yield return new WaitUntil(() => animationEnd);
+			animationEnd = false;
+			//yield return new WaitForSeconds(spellD);
 
 			switch (spell.spellType)
 			{
@@ -152,7 +163,13 @@ public class BattleSystem : MonoBehaviour
 					isDead = DamageTarget(spell.GetPower(), target);
 
 					if (isDead) target.anim.SetTrigger("Death");
-					else target.anim.SetTrigger("TakeHit");
+					else
+                    {
+                        target.anim.SetTrigger("TakeHit");
+						yield return new WaitUntil(() => animationEnd);
+						animationEnd = false;
+					}
+
 
 					switch (spell.spellDebuff)
 					{
@@ -189,15 +206,17 @@ public class BattleSystem : MonoBehaviour
 
 			StartCoroutine(EnableActionButtons(false));
 
+			//yield return new WaitForSeconds(animTransition);
+
 			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
 			//yield return new WaitForSeconds(animTransition);
 
-			
+			/*
 			if (spell.spellType == Spell.SpellType.Damage)
 				yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
 			else
 				yield return new WaitForSeconds(ReturnCurrentClipDuration(attaker));
-			
+			*/
 
 			TurnSelector(isDead);
 		}
@@ -302,8 +321,13 @@ public class BattleSystem : MonoBehaviour
 		playerUnit.anim.SetTrigger("Defend");
 
 		state = BattleState.ENEMYTURN;
-		yield return new WaitForSeconds(defenceD);
-		yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
+
+		yield return new WaitUntil(() => animationEnd);
+		animationEnd = false;
+		//yield return new WaitForSeconds(animTransition);
+
+		//yield return new WaitForSeconds(defenceD);
+		//yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		EnemyTurn();
@@ -381,7 +405,12 @@ public class BattleSystem : MonoBehaviour
 			DestroySpellsInSpellBox();
 		};
     }
-
+	
+	public void NextAnimation()
+    {
+		animationEnd = true;
+    }
+	
     #region Misc
 
 	void DestroySpellsInSpellBox()

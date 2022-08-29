@@ -118,6 +118,12 @@ public class BattleUnit : MonoBehaviour
 			currentHP = maxHP;
 	}
 
+	public void EndedAnimation()
+    {
+		BattleSystem.animationEnd = true;
+
+	}
+
     #region Get Parameters
 
     public int GetAccuracy()

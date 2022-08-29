@@ -5488,6 +5488,10 @@ PrefabInstance:
       value: EnemyHUD
       objectReference: {fileID: 0}
     - target: {fileID: 2904162837659734163, guid: 71208dc6b79a5564c89a3ed521287b6a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.18951416
+      objectReference: {fileID: 0}
+    - target: {fileID: 2904162837659734163, guid: 71208dc6b79a5564c89a3ed521287b6a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.00030517578
       objectReference: {fileID: 0}

@@ -12,17 +12,17 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST, BUSY }
 
 public class BattleSystem : MonoBehaviour
 {
-    #region Variables
+	#region Variables
 	[SerializeField] public static BattleState state;
 
-    [Header("Battle Zone")]
+	[Header("Battle Zone")]
 
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] GameObject enemyPrefab;
 
 	[SerializeField] Transform playerPosition, enemyPosition;
 
-	BattleUnit playerUnit , enemyUnit;
+	BattleUnit playerUnit, enemyUnit;
 
 	[SerializeField] TextMeshProUGUI dialogueText;
 	[SerializeField] GameObject ButtonPanel;
@@ -33,35 +33,26 @@ public class BattleSystem : MonoBehaviour
 	[SerializeField] GameObject spellButtonPf;
 	[SerializeField] GameObject spellBoxPanel;
 
-    [Header("Miscelanea")]
+	[Header("Miscelanea")]
 	[SerializeField] int defenseDuration;
 	[SerializeField] Button actionButtonSpell;
 
-	public static bool animationEnd;
-	//[SerializeField] float animTransition = 0.26f;
+	[SerializeField] float animTransition = 0.26f;
 	#endregion
 
 	private void Start()
-    {
-        state = BattleState.START;
+	{
+		state = BattleState.START;
 		StartCoroutine(SetupBattle());
-    }
+	}
 
-    private void Update()
-    {
+	private void Update()
+	{
 		// Si pulsas espacio todo el juego va FASTO
 		if (Input.GetKey(KeyCode.Space)) Time.timeScale = 2;
 		else Time.timeScale = 1;
-
-
-		//animationEnd = false;
-		if (Input.GetKeyDown(KeyCode.X))
-        {
-			NextAnimation();
-		}
-
 	}
-    IEnumerator SetupBattle()
+	IEnumerator SetupBattle()
 	{
 		GameObject playerGO = Instantiate(playerPrefab, playerPosition);
 		playerUnit = playerGO.GetComponent<BattleUnit>();
@@ -80,7 +71,7 @@ public class BattleSystem : MonoBehaviour
 		PlayerTurn();
 	}
 
-    #region Battle Logic
+	#region Battle Logic
 
 	IEnumerator AttackTarget(BattleUnit attaker, BattleUnit target, int weaponSlot = 0)
 	{
@@ -92,34 +83,33 @@ public class BattleSystem : MonoBehaviour
 			attaker.animOverride["AttackCustom"] = attaker.weapons[weaponSlot].customAnimation;
 			attaker.anim.runtimeAnimatorController = attaker.animOverride;
 			attaker.anim.SetTrigger("AttackCustom");
-			//yield return new WaitForSeconds(customAttackD);
 		}
-		else
-        {
-			attaker.anim.SetTrigger("AttackDefault");
-			//yield return new WaitForSeconds(defaultAttackD);
-		}
-		yield return new WaitUntil(() =>animationEnd);
-		animationEnd = false;
+		else attaker.anim.SetTrigger("AttackDefault");
+
+		yield return new WaitUntil(() => attaker.animationAttack);
+		attaker.animationAttack = false;
 
 		if (attaker.GetAccuracy() <= target.GetEvasion())
-        {
-			
+		{
 			isDead = DamageTarget(attaker.GetDamage(weaponSlot), target);
 
 			if (isDead) target.anim.SetTrigger("Death");
 			else target.anim.SetTrigger("TakeHit");
 
 			dialogueText.text = "The " + attaker.unitName + " attack is successful!";
-        }
-        else
-        {
+		}
+		else
+		{
 			target.anim.SetTrigger("MissHit");
 			target.PlayMissHitClip();
 			dialogueText.text = "The " + attaker.unitName + " attack missed!";
 		}
-		yield return new WaitUntil(() => animationEnd);
-		animationEnd = false;
+
+		yield return new WaitUntil(() => attaker.animationEnded);
+		attaker.animationEnded = false;
+		yield return new WaitUntil(() => target.animationEnded);
+		target.animationEnded = false;
+
 		StartCoroutine(EnableActionButtons(false));
 
 		//	Espera de la transicion de las animaciones
@@ -131,13 +121,12 @@ public class BattleSystem : MonoBehaviour
 		TurnSelector(isDead);
 	}
 	IEnumerator SpellTarget(Spell spell, BattleUnit attaker, BattleUnit target)
-    {
+	{
 		DestroySpellsInSpellBox();
 		bool isDead = false;
 
 		if (attaker.currentMP >= spell.manaCost)
 		{
-			
 			ReduceMP(spell.manaCost, attaker);
 			attaker.PlaySpellAttackClip(spell.customSound);
 			if (spell.customAnimation != null)
@@ -146,16 +135,12 @@ public class BattleSystem : MonoBehaviour
 				attaker.anim.runtimeAnimatorController = attaker.animOverride;
 				attaker.anim.SetTrigger("SpellAttackCustom");
 			}
-			else
-            {
-				attaker.anim.SetTrigger("SpellAttackDefault");
-			}
-			
+			else attaker.anim.SetTrigger("SpellAttackDefault");
+
 			dialogueText.text = attaker.unitName + " used " + spell.spellName;
 
-			yield return new WaitUntil(() => animationEnd);
-			animationEnd = false;
-			//yield return new WaitForSeconds(spellD);
+			yield return new WaitUntil(() => attaker.animationAttack);
+			attaker.animationAttack = false;
 
 			switch (spell.spellType)
 			{
@@ -163,13 +148,7 @@ public class BattleSystem : MonoBehaviour
 					isDead = DamageTarget(spell.GetPower(), target);
 
 					if (isDead) target.anim.SetTrigger("Death");
-					else
-                    {
-                        target.anim.SetTrigger("TakeHit");
-						yield return new WaitUntil(() => animationEnd);
-						animationEnd = false;
-					}
-
+					else target.anim.SetTrigger("TakeHit");
 
 					switch (spell.spellDebuff)
 					{
@@ -206,25 +185,31 @@ public class BattleSystem : MonoBehaviour
 
 			StartCoroutine(EnableActionButtons(false));
 
-			//yield return new WaitForSeconds(animTransition);
-
 			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
-			//yield return new WaitForSeconds(animTransition);
-
-			/*
+			yield return new WaitForSeconds(animTransition);
 			if (spell.spellType == Spell.SpellType.Damage)
-				yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
-			else
-				yield return new WaitForSeconds(ReturnCurrentClipDuration(attaker));
-			*/
+            {
+				yield return new WaitUntil(() => attaker.animationEnded);
+				attaker.animationEnded = false;
+				yield return new WaitUntil(() => target.animationEnded);
+				target.animationEnded = false;
+			}
+				//yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
+            else
+            {
+				yield return new WaitUntil(() => attaker.animationEnded);
+				attaker.animationEnded = false;
+			}
+				//yield return new WaitForSeconds(ReturnCurrentClipDuration(attaker));
+
 
 			TurnSelector(isDead);
 		}
-		else if (state == BattleState.ENEMYTURN)
+		else if (state == BattleState.ENEMYTURN) // Si en el turno del enemigo, este no tiene suficiente mana, hara un reroll de con que atacar
 			EnemyIA();
 		else dialogueText.text = "You dont have enough mana!";
 	}
-	
+
 	void TurnSelector(bool IsDead)  // Logica para saber de quien es el turno y como avanzar
 	{
 		if (state == BattleState.PLAYERTURN)
@@ -255,14 +240,14 @@ public class BattleSystem : MonoBehaviour
 		}
 	}
 
-    void PlayerTurn()
+	void PlayerTurn()
 	{
 		playerUnit.ReduceBuffTurn();
 		dialogueText.text = "Choose an action:";
 		StartCoroutine(EnableActionButtons(true));
 	}
 
-    public void EnemyTurn()
+	public void EnemyTurn()
 	{
 		enemyUnit.ReduceBuffTurn();
 
@@ -270,7 +255,7 @@ public class BattleSystem : MonoBehaviour
 	}
 
 	void EnemyIA()
-    {
+	{
 		int[] chance = { enemyUnit.attackProbability, enemyUnit.spellProbability };
 		int counter = 0;
 		for (int i = 0; i < chance.Length; i++)     //  Usamos un bucle para crear el numero de probabilidad maxima que debemos crear
@@ -313,7 +298,7 @@ public class BattleSystem : MonoBehaviour
 	#endregion
 
 	IEnumerator PlayerDefending()
-    {
+	{
 		playerUnit.InDefense(defenseDuration);
 
 		dialogueText.text = "You are on guard!";
@@ -321,19 +306,14 @@ public class BattleSystem : MonoBehaviour
 		playerUnit.anim.SetTrigger("Defend");
 
 		state = BattleState.ENEMYTURN;
-
-		yield return new WaitUntil(() => animationEnd);
-		animationEnd = false;
-		//yield return new WaitForSeconds(animTransition);
-
-		//yield return new WaitForSeconds(defenceD);
-		//yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
+		yield return new WaitForSeconds(animTransition);
+		yield return new WaitForSeconds(ReturnCurrentClipDuration(playerUnit));
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
 		EnemyTurn();
 	}
 
-    public void OnAttackButton()
+	public void OnAttackButton()
 	{
 		if (state != BattleState.PLAYERTURN)
 			return;
@@ -350,9 +330,9 @@ public class BattleSystem : MonoBehaviour
 	}
 
 	void CreateSpellsButtons(BattleUnit target)
-    {
-        foreach (Spell spell in target.spells)
-        {
+	{
+		foreach (Spell spell in target.spells)
+		{
 			GameObject button = Instantiate(spellButtonPf, spellBoxPanel.transform);
 
 			TextMeshProUGUI _spellName = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -377,21 +357,21 @@ public class BattleSystem : MonoBehaviour
 				Disabled ( 201, 152, 151, 255 ) Ya esta
 			
 			*/
-			
-			if(spell.manaCost > target.currentMP)
-            {
+
+			if (spell.manaCost > target.currentMP)
+			{
 				button.GetComponent<Button>().interactable = false;
-				_manaCost.color = new Color32( 201, 152, 151, 255 );
-				
+				_manaCost.color = new Color32(201, 152, 151, 255);
+
 			}
 
 			button.GetComponent<Button>().onClick.AddListener(() => StartCoroutine(SpellTarget(spell, target, enemyUnit)));
 			spellBoxPanel.SetActive(true);
 		}
-    }
+	}
 
 	public void OnSpellButton()
-    {
+	{
 		dialogueText.text = null;
 
 		if (!spellBoxPanel.activeInHierarchy)
@@ -404,41 +384,36 @@ public class BattleSystem : MonoBehaviour
 		{
 			DestroySpellsInSpellBox();
 		};
-    }
-	
-	public void NextAnimation()
-    {
-		animationEnd = true;
-    }
-	
-    #region Misc
+	}
+
+	#region Misc
 
 	void DestroySpellsInSpellBox()
-    {
+	{
 		spellBoxPanel.SetActive(false);
 		actionButtonSpell.animator.SetBool("SelectedBool", false);
 		actionButtonSpell.animator.SetTrigger("Normal");
 		foreach (Transform child in spellBoxPanel.transform)
-        {
+		{
 			GameObject.Destroy(child.gameObject);
 		}
 	}
 
 	bool DamageTarget(int dmg, BattleUnit target)
-    {
+	{
 		bool isDead = target.TakeDamage(dmg);
 		target.HUD.UpdateHP(target.currentHP);
 		return isDead; // Devuelve si el enemigo esta muerto
 	}
 
 	void ReduceMP(int mp, BattleUnit target)
-    {
+	{
 		target.ReduceMP(mp);
 		target.HUD.UpdateMP(target.currentMP);
 	}
 
 	void IfEnemyDead(bool isDead)
-    {
+	{
 		if (isDead)
 		{
 			state = BattleState.WON;
@@ -451,25 +426,25 @@ public class BattleSystem : MonoBehaviour
 	}
 
 	IEnumerator EnableActionButtons(bool _bool)
-    {
-		if(_bool) yield return new WaitForSeconds(0.1f);
+	{
+		if (_bool) yield return new WaitForSeconds(0.1f);
 
 		Button[] actionButtons = ButtonPanel.GetComponentsInChildren<Button>();
 
-        for (int i = 0; i < actionButtons.Length; i++)
-        {
+		for (int i = 0; i < actionButtons.Length; i++)
+		{
 			actionButtons[i].interactable = _bool;
-        }
-    }
+		}
+	}
 
 	float ReturnCurrentClipDuration(BattleUnit target)
-    {
+	{
 		float duration = target.anim.GetCurrentAnimatorStateInfo(0).length;
 		return duration;
-    }
+	}
 
 	float CompareCurrentClipDuration(BattleUnit first, BattleUnit second)
-    {
+	{
 		float firstDuration = ReturnCurrentClipDuration(first);
 		float secodDuration = ReturnCurrentClipDuration(second);
 
@@ -477,17 +452,17 @@ public class BattleSystem : MonoBehaviour
 		//print("primero" + " / " + firstDuration + " / " + first.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
 		//print("segundo" + " / " + secodDuration + " / " + second.anim.GetCurrentAnimatorClipInfo(0)[0].clip.name);
 		if (firstDuration == secodDuration || firstDuration > secodDuration)
-        {
+		{
 			print("Primero elegido");
 			return firstDuration;
-        }
+		}
 		else
-        {
+		{
 			print("Segundo elegido");
 			return secodDuration;
-        }
+		}
 
-    }
-    #endregion
+	}
+	#endregion
 
 }

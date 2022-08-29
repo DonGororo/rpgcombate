@@ -39,6 +39,7 @@ public class BattleUnit : MonoBehaviour
 	[Header("Animation")]
 	public Animator anim;
 	public AnimatorOverrideController animOverride;
+	public bool animationAttack, animationEnded;
 
     [Header("Audio Clips")]
 	public AudioClip attackDefaultClip;
@@ -118,11 +119,17 @@ public class BattleUnit : MonoBehaviour
 			currentHP = maxHP;
 	}
 
-	public void EndedAnimation()
+    #region Animation
+    public void AnimationAttack()
     {
-		BattleSystem.animationEnd = true;
+		animationAttack = true;
+    }
 
-	}
+	public void AnimationEnd()
+    {
+		animationEnded = true;
+    }
+    #endregion
 
     #region Get Parameters
 

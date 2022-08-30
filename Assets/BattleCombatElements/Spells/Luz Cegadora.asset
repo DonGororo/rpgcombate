@@ -18,5 +18,6 @@ MonoBehaviour:
   minPowe: 0
   maxPower: 0
   spellDebuff: 1
-  debuffProbability: 25
   debuffDuration: 2
+  customAnimation: {fileID: 7400000, guid: fdf4712c10c40f8459e311c969ad3ed1, type: 2}
+  customSound: {fileID: 0}

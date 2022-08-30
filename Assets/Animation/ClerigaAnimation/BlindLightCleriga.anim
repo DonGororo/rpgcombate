@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpellCleriga
+  m_Name: BlindLightCleriga
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -51,7 +51,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Healing
+    path: Blind Light
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves:
@@ -140,7 +140,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 146615986
+      path: 259365220
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -245,7 +245,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Healing
+    path: Blind Light
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []

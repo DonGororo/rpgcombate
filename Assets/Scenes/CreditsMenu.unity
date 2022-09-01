@@ -958,7 +958,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Music Selector
+  m_text: 'Algorithm
+
+    Code Helper'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67fc8c237326e034cb07b717bc618509, type: 2}
   m_sharedMaterial: {fileID: 6019502342322710013, guid: 67fc8c237326e034cb07b717bc618509, type: 2}
@@ -985,7 +987,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 26.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1642,7 +1644,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tu Nombre
+  m_text: Luis Filipe Corino Assenhas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed3ad3fc4d6d7554eb4baa75afb7ac5e, type: 2}
   m_sharedMaterial: {fileID: 1681445581762614662, guid: ed3ad3fc4d6d7554eb4baa75afb7ac5e, type: 2}

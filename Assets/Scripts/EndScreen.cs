@@ -13,11 +13,11 @@ public class EndScreen : MonoBehaviour
         
         if (BattleSystem.state == BattleState.WON)
         {
-            endText.text = "Congratulations, you have won both the battle and all the enemies. Want to repear the experience?";
+            endText.text = "The evil was defeated. Would you like to repeat your sacred mission?";
         }
         else if (BattleSystem.state == BattleState.LOST)
         {
-            endText.text = "You may have lost, but at least you will never be alone.  Will you submit or try your chances again?";
+            endText.text = "Do not falter hero! Only you can defeat this wicked devil. Shall you try again?";
         }
 
     }

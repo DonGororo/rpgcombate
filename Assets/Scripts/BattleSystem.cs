@@ -77,6 +77,7 @@ public class BattleSystem : MonoBehaviour
 	{
 		bool isDead = false;
 		DestroySpellsInSpellBox();
+		StartCoroutine(EnableActionButtons(false));
 
 		if (attaker.weapons[weaponSlot].customAnimation != null)
 		{
@@ -110,7 +111,6 @@ public class BattleSystem : MonoBehaviour
 		yield return new WaitUntil(() => target.animationEnded);
 		target.animationEnded = false;
 
-		StartCoroutine(EnableActionButtons(false));
 
 		//	Espera de la transicion de las animaciones
 		//yield return new WaitForSeconds(animTransition);
@@ -120,6 +120,7 @@ public class BattleSystem : MonoBehaviour
 
 		TurnSelector(isDead);
 	}
+
 	IEnumerator SpellTarget(Spell spell, BattleUnit attaker, BattleUnit target)
 	{
 		DestroySpellsInSpellBox();
@@ -127,6 +128,7 @@ public class BattleSystem : MonoBehaviour
 
 		if (attaker.currentMP >= spell.manaCost)
 		{
+			StartCoroutine(EnableActionButtons(false));
 			ReduceMP(spell.manaCost, attaker);
 			attaker.PlaySpellAttackClip(spell.customSound);
 			if (spell.customAnimation != null)
@@ -183,7 +185,6 @@ public class BattleSystem : MonoBehaviour
 					break;
 			}
 
-			StartCoroutine(EnableActionButtons(false));
 
 			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
 			yield return new WaitForSeconds(animTransition);

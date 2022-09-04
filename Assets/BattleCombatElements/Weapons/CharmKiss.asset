@@ -16,4 +16,4 @@ MonoBehaviour:
   minDamage: 7
   maxDamage: 12
   customAnimation: {fileID: 7400000, guid: 6e7552cf7bffb804f97f64e4c60a8155, type: 2}
-  customSound: {fileID: 0}
+  customSound: {fileID: 8300000, guid: 83829ff414f47a048b5387e4ab33571c, type: 3}

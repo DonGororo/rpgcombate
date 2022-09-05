@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-
+/// <summary>
+/// Used to change the attributes of the player buttons, deprecated by using animations in the buttons
+/// </summary>
 public class ActionButtonsChanger : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     void ISelectHandler.OnSelect(BaseEventData eventData)

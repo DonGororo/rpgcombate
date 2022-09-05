@@ -104,7 +104,7 @@ MonoBehaviour:
   blindMissChange: 0.5
   defNullifiedDamage: 2
   itsEnemyUnit: 0
-  unitName: Hero
+  unitName: Cleric
   currentHP: 100
   maxHP: 100
   currentMP: 70

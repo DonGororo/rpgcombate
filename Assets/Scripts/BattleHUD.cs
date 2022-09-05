@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+/// <summary>
+/// Basic HUD data
+/// </summary>
 public class BattleHUD : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI nameText;
@@ -28,6 +30,7 @@ public class BattleHUD : MonoBehaviour
         mpSlider.value = battleUnit.currentMP;
         mpText.text = battleUnit.maxMP + "/" + battleUnit.maxMP;
 
+        //  If the HUD is for an enemy, MP data will no show to the player
         if (itsEnemy)
         {
             mpSlider.gameObject.SetActive(false);

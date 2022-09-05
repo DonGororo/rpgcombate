@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 /// <summary>
-/// Parte de la logica del sistema de combate... diosito tengame en gracia porque aqui voy a hacer un destrozo
+/// Primary script that deals with all the logic
+/// 
+/// To create a new Debuff please remember to add the debuff into the switch in the SpellTarget method and do the proper changes in BattleUnit Script and Spell
 /// </summary>
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST, BUSY }
@@ -22,22 +24,21 @@ public class BattleSystem : MonoBehaviour
 
 	[SerializeField] Transform playerPosition, enemyPosition;
 
+	//This is the scripts inside the Prefab that controll all the parameters
 	BattleUnit playerUnit, enemyUnit;
 
-	[SerializeField] TextMeshProUGUI dialogueText;
+	[SerializeField] TextMeshProUGUI dialogueText;  //	Dialogue added in previous versions, with the new UI is not being used.
 	[SerializeField] GameObject ButtonPanel;
-
-
 
 	[Header("Spells Zone")]
 	[SerializeField] GameObject spellButtonPf;
 	[SerializeField] GameObject spellBoxPanel;
 
 	[Header("Miscelanea")]
-	[SerializeField] int defenseDuration;
-	[SerializeField] Button actionButtonSpell;
+	[SerializeField] int defenseDuration; // How many turns the player defense action is active TODO change to a fixed value
+	[SerializeField] Button actionButtonSpell;	//	The button prefab used to show the spells
 
-	[SerializeField] float animTransition = 0.26f;
+	[SerializeField] float animTransition = 0.26f;	//	Can be eliminated, only mantained to add a little delay before checking if the animations are complete
 	#endregion
 
 	private void Start()
@@ -48,50 +49,67 @@ public class BattleSystem : MonoBehaviour
 
 	private void Update()
 	{
-		// Si pulsas espacio todo el juego va FASTO
+		// If you press SPACE all the game will work in x2 time
 		if (Input.GetKey(KeyCode.Space)) Time.timeScale = 2;
 		else Time.timeScale = 1;
 	}
+
 	IEnumerator SetupBattle()
-	{
+	{	
+		//	Load the player and enemies in the corresponding place, in the future we plan to load multiple Player controller units and multiple enemies
 		GameObject playerGO = Instantiate(playerPrefab, playerPosition);
 		playerUnit = playerGO.GetComponent<BattleUnit>();
 
 		GameObject enemyGO = Instantiate(enemyPrefab, enemyPosition);
 		enemyUnit = enemyGO.GetComponent<BattleUnit>();
 
+		//	Dialogue used in the previous versions, with the new UI is not being used.
 		dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
 
 		// Espera hasta que se pulse el raton para continuar con el combate, "() =>" permite crear una funcion ya que introduciendolo sin esto no detecta el booleano
 		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+
+		//	This method is disabling all the player buttons
 		StartCoroutine(EnableActionButtons(false));
 		yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
+
+		//	Alwais start with the player turn, in the future this will change to use a parameter in the units loaded to calculate the turns
 		state = BattleState.PLAYERTURN;
 		PlayerTurn();
 	}
 
 	#region Battle Logic
-
+	//	Basic attack action, works for both player and enemies.
+	//	Attaker is the one doing the attack, target is the one reciving the damage and weaponSlot is the weapon in the array you want to use
 	IEnumerator AttackTarget(BattleUnit attaker, BattleUnit target, int weaponSlot = 0)
 	{
-		bool isDead = false;
-		DestroySpellsInSpellBox();
+		bool isDead = false;	//	Var used to check if the target is dead
+		DestroySpellsInSpellBox();	//	If the Spell Box is left open, this will close it
 		StartCoroutine(EnableActionButtons(false));
 
+		//	If the weapon has a AnimationClip, the Animator will changue the AttackCustom clip
+		//	in the unit for the one in the weapon and play it
 		if (attaker.weapons[weaponSlot].customAnimation != null)
 		{
+			//	Is telling to the AnimatorOverride to replace the clip AttackCustom in the unit with the clip added in the weapon
 			attaker.animOverride["AttackCustom"] = attaker.weapons[weaponSlot].customAnimation;
+			//	Now the Animator will take the info from the AnimatorOverride and apply it at runtime,
+			//	replacing the AttackCustomClip with the clip in the weapon
 			attaker.anim.runtimeAnimatorController = attaker.animOverride;
 			attaker.anim.SetTrigger("AttackCustom");
 		}
 		else attaker.anim.SetTrigger("AttackDefault");
 
+		//	The attack animation have an event that tell when the attack hits, it will wait until a bool in the unit is set to true.
+		//	Useful if the attack has an windup to synchronize the attack with the hit
 		yield return new WaitUntil(() => attaker.animationAttack);
 		attaker.animationAttack = false;
 
+		//	Check to see if the attack is evaded
 		if (attaker.GetAccuracy() <= target.GetEvasion())
 		{
+			//	At the time of the attack, the target will return if is dead or not
 			isDead = DamageTarget(attaker.GetDamage(weaponSlot), target);
 
 			if (isDead) target.anim.SetTrigger("Death");
@@ -106,21 +124,18 @@ public class BattleSystem : MonoBehaviour
 			dialogueText.text = "The " + attaker.unitName + " attack missed!";
 		}
 
+		//	Wait until both animations (Attack and receiving a hit) are complete
 		yield return new WaitUntil(() => attaker.animationEnded);
 		attaker.animationEnded = false;
 		yield return new WaitUntil(() => target.animationEnded);
 		target.animationEnded = false;
 
-
-		//	Espera de la transicion de las animaciones
-		//yield return new WaitForSeconds(animTransition);
-		//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
-		//yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
-		//yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
 		TurnSelector(isDead);
 	}
 
+	//	Basic Spell action, works for both player and enemies. Lots of thing are shared with the AttackTarget method
+	//	Spells will always hit
+	//	Spell is the spell selected, Attaker is the one doing the attack and target is the one reciving the damage
 	IEnumerator SpellTarget(Spell spell, BattleUnit attaker, BattleUnit target)
 	{
 		DestroySpellsInSpellBox();
@@ -130,6 +145,8 @@ public class BattleSystem : MonoBehaviour
 		{
 			StartCoroutine(EnableActionButtons(false));
 			ReduceMP(spell.manaCost, attaker);
+
+			// Same logic as see in the AttackTarget method
 			attaker.PlaySpellAttackClip(spell.customSound);
 			if (spell.customAnimation != null)
 			{
@@ -144,6 +161,8 @@ public class BattleSystem : MonoBehaviour
 			yield return new WaitUntil(() => attaker.animationAttack);
 			attaker.animationAttack = false;
 
+			//	Depending of the spell type it will do diferents things
+			//	If you crate a new debuff renember to add it to the swich with the corresponding method call in the attacker/target
 			switch (spell.spellType)
 			{
 				case Spell.SpellType.Damage:
@@ -185,8 +204,6 @@ public class BattleSystem : MonoBehaviour
 					break;
 			}
 
-
-			//	Compara cual de las dos animaciones que se estan reproduciendo actualmente es mas larga y devuelve su valor
 			yield return new WaitForSeconds(animTransition);
 			if (spell.spellType == Spell.SpellType.Damage)
             {
@@ -195,23 +212,21 @@ public class BattleSystem : MonoBehaviour
 				yield return new WaitUntil(() => target.animationEnded);
 				target.animationEnded = false;
 			}
-				//yield return new WaitForSeconds(CompareCurrentClipDuration(attaker, target));
             else
             {
 				yield return new WaitUntil(() => attaker.animationEnded);
 				attaker.animationEnded = false;
 			}
-				//yield return new WaitForSeconds(ReturnCurrentClipDuration(attaker));
-
 
 			TurnSelector(isDead);
 		}
-		else if (state == BattleState.ENEMYTURN) // Si en el turno del enemigo, este no tiene suficiente mana, hara un reroll de con que atacar
+		// If is the enemy turn and it doesn't have enough mana for the spell selected, it will reroll the attack
+		else if (state == BattleState.ENEMYTURN) 
 			EnemyIA();
 		else dialogueText.text = "You dont have enough mana!";
 	}
 
-	void TurnSelector(bool IsDead)  // Logica para saber de quien es el turno y como avanzar
+	void TurnSelector(bool IsDead)  
 	{
 		if (state == BattleState.PLAYERTURN)
 		{
@@ -255,11 +270,13 @@ public class BattleSystem : MonoBehaviour
 		EnemyIA();
 	}
 
+	//	Basic IA where you can changue te probability to use a spell or a attack.
+	//	In the future you can add a script that will overdrive this IA for more advanced battles
 	void EnemyIA()
 	{
 		int[] chance = { enemyUnit.attackProbability, enemyUnit.spellProbability };
 		int counter = 0;
-		for (int i = 0; i < chance.Length; i++)     //  Usamos un bucle para crear el numero de probabilidad maxima que debemos crear
+		for (int i = 0; i < chance.Length; i++)
 		{
 			counter += chance[i];
 		}
@@ -284,21 +301,9 @@ public class BattleSystem : MonoBehaviour
 	void EndBattle()
 	{
 		SceneManager.LoadScene("EndGameScreen");
-		/*
-		if (state == BattleState.WON)
-			
-			dialogueText.text = "You won the battle!";
-		}
-		else if (state == BattleState.LOST)
-		{
-			dialogueText.text = "You were defeated.";
-		}
-		*/
 	}
 
-	#endregion
-
-	IEnumerator PlayerDefending()
+    IEnumerator PlayerDefending()
 	{
 		playerUnit.InDefense(defenseDuration);
 
@@ -314,6 +319,12 @@ public class BattleSystem : MonoBehaviour
 		EnemyTurn();
 	}
 
+    #endregion
+
+    #region UI Elements
+
+
+	//	Called when you press "Attack" in the player actions
 	public void OnAttackButton()
 	{
 		if (state != BattleState.PLAYERTURN)
@@ -322,6 +333,7 @@ public class BattleSystem : MonoBehaviour
 		StartCoroutine(AttackTarget(playerUnit, enemyUnit));
 	}
 
+	//	Called when you press "Defend" in the player actions, starting the PlayerDefending coroutine
 	public void OnDefendButton()
 	{
 		if (state != BattleState.PLAYERTURN)
@@ -330,6 +342,26 @@ public class BattleSystem : MonoBehaviour
 		StartCoroutine(PlayerDefending());
 	}
 
+	//	Called when you press "Spell" in the player actions, it will open or close the Spell panel
+	public void OnSpellButton()
+	{
+		dialogueText.text = null;
+
+		if (!spellBoxPanel.activeInHierarchy)
+		{
+			CreateSpellsButtons(playerUnit);
+			spellBoxPanel.SetActive(true);
+			// Used to maintain the spell button highlighted when you click in other part of the game... If anyone knows a better way I am all ears
+			actionButtonSpell.animator.SetBool("SelectedBool", true);
+		}
+		else
+		{
+			DestroySpellsInSpellBox();
+		};
+	}
+
+	//	Called by OnSpellButton method. It will open a panel with all the spells of the specified target
+	//	Its created and destroyed everytime for convenience, if there is any change in the mana of the target it will be updated
 	void CreateSpellsButtons(BattleUnit target)
 	{
 		foreach (Spell spell in target.spells)
@@ -343,22 +375,7 @@ public class BattleSystem : MonoBehaviour
 			_spellName.text = spell.spellName;
 			_manaCost.text = spell.manaCost + "MP";
 
-			/*El color de los textos tiene que cambiar al interactuar con los botones, aquí te dejo los valores. Recuerda usar new color32 
-			
-			Spell Name:
-				Normal (143, 133, 127, 255) Está en el prefab
-				Hover (114, 103, 99, 255)
-				Click (86, 64, 55, 255)
-				Disabled (165, 164, 164, 255)
-
-			Mana Cost:
-				Normal (121, 164, 192, 255) Está en el prefab
-				Hover (66, 136, 180, 255)
-				Click (80, 176, 237, 255)
-				Disabled ( 201, 152, 151, 255 ) Ya esta
-			
-			*/
-
+			//	If you dont have enought mana the spell will be dissabled
 			if (spell.manaCost > target.currentMP)
 			{
 				button.GetComponent<Button>().interactable = false;
@@ -371,25 +388,7 @@ public class BattleSystem : MonoBehaviour
 		}
 	}
 
-	public void OnSpellButton()
-	{
-		dialogueText.text = null;
-
-		if (!spellBoxPanel.activeInHierarchy)
-		{
-			CreateSpellsButtons(playerUnit);
-			spellBoxPanel.SetActive(true);
-			actionButtonSpell.animator.SetBool("SelectedBool", true);
-		}
-		else
-		{
-			DestroySpellsInSpellBox();
-		};
-	}
-
-	#region Misc
-
-	void DestroySpellsInSpellBox()
+    void DestroySpellsInSpellBox()
 	{
 		spellBoxPanel.SetActive(false);
 		actionButtonSpell.animator.SetBool("SelectedBool", false);
@@ -399,6 +398,23 @@ public class BattleSystem : MonoBehaviour
 			GameObject.Destroy(child.gameObject);
 		}
 	}
+
+	//	Called when you need to enable/disable the player buttons
+	IEnumerator EnableActionButtons(bool _bool)
+	{
+		if (_bool) yield return new WaitForSeconds(0.1f);
+
+		Button[] actionButtons = ButtonPanel.GetComponentsInChildren<Button>();
+
+		for (int i = 0; i < actionButtons.Length; i++)
+		{
+			actionButtons[i].interactable = _bool;
+		}
+	}
+
+    #endregion
+
+    #region Misc
 
 	bool DamageTarget(int dmg, BattleUnit target)
 	{
@@ -426,18 +442,7 @@ public class BattleSystem : MonoBehaviour
 		}
 	}
 
-	IEnumerator EnableActionButtons(bool _bool)
-	{
-		if (_bool) yield return new WaitForSeconds(0.1f);
-
-		Button[] actionButtons = ButtonPanel.GetComponentsInChildren<Button>();
-
-		for (int i = 0; i < actionButtons.Length; i++)
-		{
-			actionButtons[i].interactable = _bool;
-		}
-	}
-
+	//	Old way to check if the attack animations has ended, deprecated by using AnimationEvents
 	float ReturnCurrentClipDuration(BattleUnit target)
 	{
 		float duration = target.anim.GetCurrentAnimatorStateInfo(0).length;

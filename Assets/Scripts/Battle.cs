@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// First combat algorithm by Luis
+/// </summary>
 public class Battle : MonoBehaviour
 {
 

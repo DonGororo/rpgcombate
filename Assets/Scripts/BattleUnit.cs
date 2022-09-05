@@ -5,21 +5,25 @@ using UnityEngine;
 using TMPro;
 using Random = UnityEngine.Random;
 /// <summary>
-/// Este script contiene todos los datos de la unidad, incluido estadisticas base y modificadores
-/// Tambien realizara los calculos de los ataques
+/// Base script for all the units, it has all the parameters used in the battle system
+/// 
+/// To create a new Debuff please remember to add the effect as a new method in the Buffs region,
+/// add it to the debuff turns array and do the proper changes in BattleUnit Script and BattleSystem
 /// </summary>
 public class BattleUnit : MonoBehaviour
 {
     #region Variables
 
-    //En verdad todo esto se podria hacer un ScripteableObject para que mantenga los valores de vida y eso... pero bue
+    //	In the future a ton of these will be added in a scriptable object
 
+	//	Multipliers for the debuffs
 	[Header("Debuffs Zone")]
 	public float blindMissChange = 0.5f;
-	public int defNullifiedDamage =2;
+	public int defNullifiedDamage = 2;
 
 	[Header("Basic Parameters")]
 	public bool itsEnemyUnit;
+
 	public string unitName;
 	public int currentHP, maxHP;
 	public int currentMP, maxMP;
@@ -28,16 +32,19 @@ public class BattleUnit : MonoBehaviour
 	//	Modificadores de las estadisticas
 	int modEvasion, modAccuracy;
 
+	//	Weapons and spells equiped in the unit
     [Header("Battle thingies")]
 	public Weapons[] weapons;
 	public Spell[] spells;
 
+	//	Used to pair the Hud with the unit. In the future the tag will be deprecated for a better way
 	[Header("HUD Tag")]
 	public string HUDtag;
 	public BattleHUD HUD;
 
 	[Header("Animation")]
 	public Animator anim;
+	//	AnimationOverride is used to replace the customs clips for the animations clips in the weapons/spells
 	public AnimatorOverrideController animOverride;
 	public bool animationAttack, animationEnded;
 
@@ -53,18 +60,18 @@ public class BattleUnit : MonoBehaviour
 	public int attackProbability;
 	public int spellProbability;
 
-    //	Array de turnos para cada debuffo
+    //	Turn array for the buffs. In the future this will be changed for a better way
     int[] debuffTurns = new int[]
     {
 		0,	//	blinded index 0
 		0	//	Defense index 1
     };
 
-	//	Debuffos aplicados
-	bool blinded;
-	bool defended;
+	//	Buffs checker
+	bool blinded;   //	Applied in GetAccuracy()
+	bool defended;	//	Applied in TakeDamage()
 
-    Action<int> CheckBuffs;	//	Es un evento pero mas corto... yokse hace magias
+    Action<int> CheckBuffs;	//	All Active buffs will be added to this event
 
     #endregion
 
@@ -81,11 +88,14 @@ public class BattleUnit : MonoBehaviour
 
     public void ReduceBuffTurn()
     {
+		//	It will reduce the turn duration by one
         for (int i = 0; i < debuffTurns.Length; i++)
         {
 			if (debuffTurns[i] > 0)
 			debuffTurns[i]--;
         }
+		//	It will call again all the active buff to reaply the effect
+		//	or if the turns are 0, delete the buff from the event
 		if (CheckBuffs != null) CheckBuffs(0);
     }
 
@@ -120,11 +130,15 @@ public class BattleUnit : MonoBehaviour
 	}
 
     #region Animation
+	//	Methods called in the Animation
+
+	//	Called in the moment a attack hit the enemy
     public void AnimationAttack()
     {
 		animationAttack = true;
     }
 
+	//	Called in the moment a animation thats not a loop has finished
 	public void AnimationEnd()
     {
 		animationEnded = true;
@@ -133,17 +147,19 @@ public class BattleUnit : MonoBehaviour
 
     #region Get Parameters
 
+	//	The lower the Accuracy the better
     public int GetAccuracy()
 	{ 
 		float returnAccuracy;
 
 		returnAccuracy = Random.Range(0 , 100) - baseAccuracy - modAccuracy;
 
-		if (blinded) returnAccuracy = returnAccuracy * (1 + blindMissChange);
+		if (blinded) returnAccuracy = returnAccuracy * (blindMissChange);
 
 		return (int)returnAccuracy;
     }
 
+	//	The lower the Evasion the better
 	public int GetEvasion()
 	{
 		float returnEvasion;
@@ -177,6 +193,7 @@ public class BattleUnit : MonoBehaviour
 			blinded = true;
 			CheckBuffs += Blinded;
 			HUD.buffsIcons[0].SetActive(true);
+			//	Update the text in the icon
             HUD.buffsIcons[0].GetComponentInChildren<TextMeshProUGUI>().text = debuffTurns[0].ToString();
         }
         else 

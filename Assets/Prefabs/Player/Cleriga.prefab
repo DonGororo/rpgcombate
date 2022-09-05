@@ -123,7 +123,7 @@ MonoBehaviour:
   animationAttack: 0
   animationEnded: 0
   attackDefaultClip: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
-  spellAttackDefaultClip: {fileID: 8300000, guid: d1afd3f4d23c24f418ffc315afb04965, type: 3}
+  spellAttackDefaultClip: {fileID: 8300000, guid: 2d7272198aeadf64c838b7ebbc6338c9, type: 3}
   takeHitClip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
   missHitClip: {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
   deathClip: {fileID: 0}

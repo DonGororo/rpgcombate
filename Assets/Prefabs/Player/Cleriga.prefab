@@ -122,11 +122,11 @@ MonoBehaviour:
   animOverride: {fileID: 0}
   animationAttack: 0
   animationEnded: 0
-  attackDefaultClip: {fileID: 8300000, guid: 0a14cd4c4ad0d9245acbec58d4b59ccb, type: 3}
-  spellAttackDefaultClip: {fileID: 8300000, guid: 5c1985b0608197243a7c7e4ca356ddeb, type: 3}
-  takeHitClip: {fileID: 8300000, guid: e85bf8666ed73714481fd43893864911, type: 3}
-  missHitClip: {fileID: 8300000, guid: d99301b4075f5b54da96f171582c9d3c, type: 3}
-  deathClip: {fileID: 8300000, guid: f2cdaa73044994d4abe7f669bf395981, type: 3}
+  attackDefaultClip: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
+  spellAttackDefaultClip: {fileID: 8300000, guid: d1afd3f4d23c24f418ffc315afb04965, type: 3}
+  takeHitClip: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+  missHitClip: {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
+  deathClip: {fileID: 0}
   attackProbability: 0
   spellProbability: 0
 --- !u!95 &157520809099534896
@@ -4148,7 +4148,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.050980393}
+      maxColor: {r: 0.9811321, g: 0.9510633, b: 0.7821289, a: 0.23529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4911,7 +4911,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

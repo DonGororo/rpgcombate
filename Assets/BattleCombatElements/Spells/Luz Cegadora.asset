@@ -20,4 +20,4 @@ MonoBehaviour:
   spellDebuff: 1
   debuffDuration: 2
   customAnimation: {fileID: 7400000, guid: fdf4712c10c40f8459e311c969ad3ed1, type: 2}
-  customSound: {fileID: 8300000, guid: 357f434832c3b494dab00ed99f825073, type: 3}
+  customSound: {fileID: 8300000, guid: d1afd3f4d23c24f418ffc315afb04965, type: 3}
